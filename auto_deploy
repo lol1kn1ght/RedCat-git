@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Деплой: загрузка проекта..."
 
-cd ~/bots/gg \
+cd ~/bots/RedCat-git \
 && git pull origin master \
 && echo "Деплой: установка зависимостей..." \
 && npm i \
