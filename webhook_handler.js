@@ -4,8 +4,6 @@ const shell = require("shelljs");
 const REPO_NAME = "RedCat-git";
 const PORT = process.env.PORT || 6769;
 
-let handler = createHandler({path: "/", secret: "test"});
-
 let handler = createHandler({path: "/", secret: "redcattest"});
 
 http
