@@ -13,8 +13,10 @@
     "discord-slash-commands-client": "^1.2.1",
     "discord.js": "^12.5.3",
     "fs": "0.0.1-security",
+    "github-webhook-handler": "^1.0.0",
     "mongodb": "^3.6.6",
     "node-fetch": "^2.6.1",
-    "parse-duration": "^1.0.0"
+    "parse-duration": "^1.0.0",
+    "shelljs": "^0.8.4"
   }
 }
