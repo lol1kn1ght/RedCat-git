@@ -65,6 +65,7 @@ class BotLaunch {
       `${green} \n ---------------------------------------------------------------------`
     );
   }
+
   async authDB() {
     let {user, ip, pass, auth} = mongo_config;
 
