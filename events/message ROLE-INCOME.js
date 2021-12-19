@@ -60,6 +60,8 @@ class Event {
 
     let author_profile = await Profile(db, message.author.id);
 
+    console.log(income_amount);
+
     author_profile.addMoney(income_amount);
     author_profile.updateData({last_collect: date.getTime()});
 
