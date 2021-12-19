@@ -53,16 +53,13 @@ class Event {
     let income_amount = 0;
 
     if (income_roles[1])
-      income_amount = income_roles.reduce(
-        (amount, current_value) => amount + (current_value.income || 0)
-      );
+      income_amount = income_roles.reduce((prev_value, current_value) => {
+        return (prev_value.income || prev_value) + (current_value.income || 0);
+      });
     else income_amount = income_roles[0].income;
-
-    console.log(income_roles);
 
     let author_profile = await Profile(db, message.author.id);
 
-    console.log(income_amount);
     author_profile.addMoney(income_amount);
     author_profile.updateData({last_collect: date.getTime()});
 
