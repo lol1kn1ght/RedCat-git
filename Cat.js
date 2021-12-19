@@ -72,8 +72,10 @@ class BotLaunch {
     if (!auth) ip = "localhost";
 
     let connect = util.promisify(this.mongoClient.connect);
+
     let mongo = await connect(
-      `mongodb://${auth ? `${user}:${pass}@${ip}` : ip}:27017`,
+      `mongodb+srv://${user}:${pass}@${ip}`,
+      // `mongodb://${auth ? `${user}:${pass}@${ip}` : ip}:27017`,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true
