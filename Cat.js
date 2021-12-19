@@ -68,7 +68,6 @@ class BotLaunch {
 
   async authDB() {
     let {user, ip, pass, auth} = mongo_config;
-
     if (!auth) ip = "localhost";
 
     let connect = util.promisify(this.mongoClient.connect);
