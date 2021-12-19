@@ -4,7 +4,7 @@ const shell = require("shelljs");
 const REPO_NAME = "RedCat-git";
 const PORT = process.env.PORT || 6768;
 
-let handler = createHandler({path: "/", secret: "test"});
+let handler = createHandler({path: "/", secret: "AUTOUPDATE"});
 
 http
   .createServer((req, res) => {
