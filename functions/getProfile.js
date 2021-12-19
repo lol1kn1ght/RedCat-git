@@ -4,7 +4,7 @@ module.exports = async (bot, db, memberID) => {
   if (!memberID) throw new Error("Не указан айди пользователя для поиска.");
   var data = await users
     .find({
-      login: memberID.id || memberID,
+      login: memberID.id || memberID
     })
     .toArray();
   var member = data[0] || {};
@@ -32,22 +32,22 @@ module.exports = async (bot, db, memberID) => {
           "Неправильно указан новый баланс. Значение не должно быть меньше 0."
         );
       this._updateData({
-        coins: amount,
+        coins: amount
       });
       this.member.coins = amount;
       return {
         action: "Balance Set",
         balance: {
           before: this.getBalance(),
-          after: amount,
-        },
+          after: amount
+        }
       };
     }
 
     async addMoney(amount) {
       amount = Number(amount);
       if (isNaN(amount)) throw new Error("Сумма не является числом.");
-      if (amount < 0) throw new Error("Сумма должна быть больше нуля.");
+      // if (amount < 0) throw new Error("Сумма должна быть больше нуля.");
 
       let balance = this.getBalance();
       var result = amount + balance;
@@ -56,15 +56,15 @@ module.exports = async (bot, db, memberID) => {
         throw new Error("Результат операции не является числом.");
       if (result < 0) result = balance;
       this.updateData({
-        coins: result,
+        coins: result
       });
       this.coins += amount;
       return {
         action: "Add Money",
         balance: {
           before: balance,
-          after: result,
-        },
+          after: result
+        }
       };
     }
 
@@ -80,15 +80,15 @@ module.exports = async (bot, db, memberID) => {
         throw new Error("Неправильный результат операции.");
       if (result < 0) result = balance;
       this.updateData({
-        coins: result,
+        coins: result
       });
       this.coins = result;
       return {
         action: "Remove Money",
         balance: {
           before: balance,
-          after: result,
-        },
+          after: result
+        }
       };
     }
 
@@ -99,17 +99,17 @@ module.exports = async (bot, db, memberID) => {
       } else {
         users.updateOne(
           {
-            login: memberID,
+            login: memberID
           },
           {
-            $set: data,
+            $set: data
           }
         );
       }
 
       var newProfile = await users
         .find({
-          login: memberID,
+          login: memberID
         })
         .toArray();
       this.member = newProfile[0];
