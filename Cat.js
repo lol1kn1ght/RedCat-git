@@ -3,10 +3,13 @@ const client = new Discord.Client();
 const fs = require("fs");
 const util = require("util");
 const Slash_client = require("discord-slash-commands-client").Client;
+const mongo_config = require("./config/mongo.json");
+const token = require("./config/token.json").token;
+
 let f = require(`./config/modules.js`);
 
-const { MongoClient } = require("mongodb");
-const slash = new Slash_client(f.config.token, "813346729977315328");
+const {MongoClient} = require("mongodb");
+const slash = new Slash_client(token, "813346729977315328");
 
 let green = "\x1b[32m";
 let red = "\x1b[31m";
@@ -31,7 +34,7 @@ class BotLaunch {
     );
     console.log(
       `${magenta} Авторизация бд:`,
-      `${this.config.db.auth ? `${green}Включена` : `${red}Выключена`};`
+      `${mongo_config.auth ? `${green}Включена` : `${red}Выключена`};`
     );
     console.log(
       `${magenta} Слэш-команды: ` +
@@ -64,7 +67,7 @@ class BotLaunch {
   }
 
   async authDB() {
-    let { user, ip, pass, auth } = this.config.db;
+    let {user, ip, pass, auth} = mongo_config;
 
     if (!auth) ip = "localhost";
 
@@ -73,7 +76,7 @@ class BotLaunch {
       `mongodb://${auth ? `${user}:${pass}@${ip}` : ip}:27017`,
       {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: true
       }
     );
     this.mongo = mongo;
@@ -148,13 +151,13 @@ class BotLaunch {
       `\n${green} ################### | Начинаю очистку прошлых слеш-команд | ####################\n`
     );
     let before_commands = await slash.getCommands({
-      guildID: guildID,
+      guildID: guildID
     });
     await delete_slash();
     async function delete_slash() {
       let current_command = 0;
       let slash_commands = await slash.getCommands({
-        guildID: guildID,
+        guildID: guildID
       });
       if (!slash_commands[0])
         return console.log(
@@ -166,7 +169,7 @@ class BotLaunch {
 
       await slash
         .deleteCommand(slash_command.id, f.config.slash_guild)
-        .catch((e) => {});
+        .catch(e => {});
       await delete_slash();
     }
     console.log(
@@ -196,7 +199,7 @@ class BotLaunch {
         .applications(this.bot.user.id)
         .guilds(f.config.slash_guild)
         .commands.post({
-          data: command.slashOptions,
+          data: command.slashOptions
         });
       console.log(
         `Успешно загружена слеш-команда ${command.slashOptions.name}`
@@ -208,7 +211,7 @@ class BotLaunch {
   }
 
   async login() {
-    await this.bot.login(this.config.token);
+    await this.bot.login(token);
     console.log(`${cyan} ${this.bot.user.tag} Успешно запущен.\n`);
   }
 }
