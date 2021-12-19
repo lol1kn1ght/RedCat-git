@@ -53,12 +53,9 @@ class Event {
     let income_amount = 0;
 
     if (income_roles[1])
-      income_amount = income_roles.reduce((amount, current_value) => {
-        console.log(current_value);
-        console.log(amount.income + (current_value.income || 0));
-
-        return amount.income + (current_value.income || 0);
-      });
+      income_amount = income_roles.reduce(
+        (amount, current_value) => amount + (current_value.income || 0)
+      );
     else income_amount = income_roles[0].income;
 
     console.log(income_roles);
