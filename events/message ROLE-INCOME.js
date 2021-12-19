@@ -4,7 +4,7 @@ class Event {
   async execute(bot, mongo, message) {
     if (message.author.bot) return;
     let db = mongo.db(message.guild.id).collection("settings");
-    let guild_settings = await db.find({ guildID: message.guild.id }).toArray();
+    let guild_settings = await db.find({guildID: message.guild.id}).toArray();
     this.server_settings = guild_settings[0] || {};
 
     this.role_payday(bot, mongo, message);
@@ -19,9 +19,7 @@ class Event {
 
     if (!author_income) {
       let users_db = db.collection("users");
-      let user_data = await users_db
-        .find({ login: message.author.id })
-        .toArray();
+      let user_data = await users_db.find({login: message.author.id}).toArray();
       author_income = user_data[0] || {};
     }
 
@@ -41,7 +39,7 @@ class Event {
     let payday_data = (await payday_db.find().toArray()) || [];
 
     let income_roles = [...shop_data, ...payday_data].filter(
-      (item) =>
+      item =>
         item.role && item.income && message.member.roles.cache.has(item.role)
     );
 
@@ -52,7 +50,7 @@ class Event {
       return;
     }
 
-    let income_amount;
+    let income_amount = 0;
 
     if (income_roles[1])
       income_amount = income_roles.reduce(
@@ -63,7 +61,7 @@ class Event {
     let author_profile = await Profile(db, message.author.id);
 
     author_profile.addMoney(income_amount);
-    author_profile.updateData({ last_collect: date.getTime() });
+    author_profile.updateData({last_collect: date.getTime()});
 
     author_income.last_collect = date.getTime();
     f.day_income[message.author.id] = author_income;
@@ -78,15 +76,13 @@ class Event {
 
     var clubs_db = db.collection("clubs");
     var clubs_data = await clubs_db.find().toArray();
-    var club = clubs_data.filter((club) =>
+    var club = clubs_data.filter(club =>
       club.members?.includes(message.author.id)
     )[0];
 
     if (!author_income) {
       let users_db = db.collection("users");
-      let user_data = await users_db
-        .find({ login: message.author.id })
-        .toArray();
+      let user_data = await users_db.find({login: message.author.id}).toArray();
       author_income = user_data[0] || {};
 
       author_income = user_data[0] || {};
@@ -111,15 +107,15 @@ class Event {
 
     clubs_db.updateOne(
       {
-        owner: club.owner,
+        owner: club.owner
       },
       {
         $set: {
-          money: (club.money || 0) + amount,
-        },
+          money: (club.money || 0) + amount
+        }
       }
     );
-    author_profile.updateData({ last_club_collect: date.getTime() });
+    author_profile.updateData({last_club_collect: date.getTime()});
 
     author_income.last_club_collect = date.getTime();
     f.club_day_income[message.author.id] = author_income;
