@@ -51,6 +51,7 @@ class BotLaunch {
     console.log(`${green} --------------------|`);
 
     await this.login();
+
     // if (f.config.slash_commands) {
     //   console.log(`${green} --------------------|`);
     //   await this.loadSlashCommands(this.commands);
