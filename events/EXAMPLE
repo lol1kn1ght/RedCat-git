@@ -1,0 +1,11 @@
+class Event {
+  constructor() {   }
+
+  async execute(bot, mongo) {
+
+  }
+
+}
+module.exports = (...args) => {
+  new Event().execute(...args);
+};
