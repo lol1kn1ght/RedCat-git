@@ -137,6 +137,35 @@ class Command {
         break;
 
       case "hide":
+        let permissions_arr = channel.permissionOverwrites.array();
+
+        let new_permissions = [
+          {
+            id: "648818757409701890",
+            allow: ["VIEW_CHANNEL"]
+          },
+          {
+            id: "582260552588460053",
+            allow: ["VIEW_CHANNEL"]
+          }
+        ];
+
+        for (let permission of permissions_arr) {
+          if (
+            permission.id === "582260552588460053" ||
+            permission.id === "648818757409701890"
+          )
+            continue;
+
+          new_permissions.push({
+            id: permission.id,
+            deny: ["VIEW_CHANNEL"]
+          });
+        }
+
+        channel.overwritePermissions(new_permissions);
+
+        f.msg(message, "Вы успешно закрыли канал.");
         break;
 
         break;
