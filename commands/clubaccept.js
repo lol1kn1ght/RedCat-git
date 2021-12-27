@@ -13,16 +13,19 @@ class Command {
       message.guild.members.cache.get(args[0]) ||
       message.mentions.members.first() ||
       message.guild.members.cache.find(
-        (guild_member) =>
+        guild_member =>
           guild_member.user.tag.toLowerCase() === args.join(" ").toLowerCase()
       );
     if (!member)
-      return f.msgFalse(message, "Вы не указали участника для кика из клуба.");
+      return f.msgFalse(
+        message,
+        "Вы не указали участника для принятия в клуб."
+      );
 
     let clubs_db = db.collection("clubs");
     let clubs_data = await clubs_db.find().toArray();
     let club = clubs_data.filter(
-      (club) =>
+      club =>
         club.owner === message.author.id ||
         club.admins?.includes(message.author.id)
     )[0];
@@ -44,7 +47,7 @@ class Command {
       let all_members = [
         ...new Set(
           other_club.members.concat(other_club.admins || [], [other_club.owner])
-        ),
+        )
       ];
 
       if (all_members.includes(member.id)) {
@@ -54,12 +57,12 @@ class Command {
 
         clubs_db.updateOne(
           {
-            owner: club.owner,
+            owner: club.owner
           },
           {
             $set: {
-              requests: club.requests,
-            },
+              requests: club.requests
+            }
           }
         );
 
@@ -71,13 +74,13 @@ class Command {
     club.requests.splice(club.requests.indexOf(member.id), 1);
     clubs_db.updateOne(
       {
-        owner: club.owner,
+        owner: club.owner
       },
       {
         $set: {
           members: club.members,
-          requests: club.requests,
-        },
+          requests: club.requests
+        }
       }
     );
 
@@ -92,14 +95,14 @@ class Command {
       type: "Клубы",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
   #getSlashOptions() {
     return {
       name: "clubaccept",
-      description: this.options.description,
+      description: this.options.description
     };
   }
 }

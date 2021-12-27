@@ -51,7 +51,7 @@ class Event {
             olds.channel.bitrate === 65000 &&
             !lobbyies.includes(olds.channel.id)
           )
-            olds.channel.delete(`Пустой автоканал.`);
+            olds.channel.delete(`Пустой автоканал.`).catch(err => {});
         }
       });
   }
