@@ -8,7 +8,7 @@ class Command {
     var db = mongo.db(message.guild.id);
     try {
       message.delete({
-        timeout: 30000,
+        timeout: 30000
       });
     } catch (e) {}
 
@@ -20,10 +20,12 @@ class Command {
         `Вы должны находиться в своем голосовом канале для вызова команды.`
       );
     let channel = message.member.voice.channel;
+
+    let members_permissions = message.member.voice.channel.memberPermissions(
+      message.member
+    );
     if (
-      !message.member.voice.channel
-        .memberPermissions(message.member)
-        .has("PRIORITY_SPEAKER") ||
+      !members_permissions.has("CREATE_INSTANT_INVITE") ||
       message.member.voice.channel.bitrate !== 65000
     )
       return f.msgFalse(
@@ -37,7 +39,7 @@ class Command {
           return f.msgFalse(message, `Вы не указали название канала.`);
         args.splice(0, 1);
         channel.edit({
-          name: args.join(` `),
+          name: args.join(` `)
         });
         f.msg(
           message,
@@ -51,20 +53,20 @@ class Command {
         if (limit > 99 || limit < 1)
           return f.msgFalse(message, `Не правильно указан лимит комнаты.`);
         channel.edit({
-          userLimit: limit,
+          userLimit: limit
         });
         f.msg(message, `Вы успешно установили лимит в **${args[1]}** человек.`);
         break;
       case "открыть":
       case "open":
         channel.updateOverwrite(message.guild.id, {
-          CONNECT: true,
+          CONNECT: true
         });
         f.msg(message, `Вы успешно открыли дверь в комнату для других людей.`);
         break;
       case "закрыть":
         channel.updateOverwrite(message.guild.id, {
-          CONNECT: false,
+          CONNECT: false
         });
         f.msg(message, `Вы успешно закрыли дверь в комнату для других людей.`);
         break;
@@ -104,7 +106,7 @@ class Command {
         if (member.user.bot)
           return f.msgFalse(message, `Вы не можете забанить бота.`);
         channel.updateOverwrite(member.id, {
-          CONNECT: false,
+          CONNECT: false
         });
         if (member.voice.channel && member.voice.channel.id === channel.id)
           member.voice.setChannel(null);
@@ -126,12 +128,17 @@ class Command {
         if (member.user.bot)
           return f.msgFalse(message, `Вы не можете разбанить бота.`);
         channel.updateOverwrite(member.id, {
-          CONNECT: null,
+          CONNECT: null
         });
         f.msg(
           message,
           `Вы успешно разрешили входить участнику **${member.user.tag}** в ваш канал.`
         );
+        break;
+
+      case "hide":
+        break;
+
         break;
       default:
         f.msgFalse(
@@ -149,7 +156,7 @@ class Command {
       type: "Голосовые каналы",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
@@ -166,41 +173,41 @@ class Command {
           choices: [
             {
               name: "название вашего канала",
-              value: "name",
+              value: "name"
             },
             {
               name: "лимит участников в вашем канале",
-              value: "limit",
+              value: "limit"
             },
             {
               name: "закрыть ваш канал",
-              value: "close",
+              value: "close"
             },
             {
               name: "открыть ваш канал",
-              value: "open",
+              value: "open"
             },
             {
               name: "выгнать участника из вашего канала",
-              value: "kick",
+              value: "kick"
             },
             {
               name: "запретить участнику заходить в ваш канал",
-              value: "ban",
+              value: "ban"
             },
             {
               name: "разрешить участнику заходить в ваш канал",
-              value: "unban",
-            },
-          ],
+              value: "unban"
+            }
+          ]
         },
         {
           name: "option_value",
           description: "новое значение опции",
           required: false,
-          type: 3,
-        },
-      ],
+          type: 3
+        }
+      ]
     };
   }
 }
