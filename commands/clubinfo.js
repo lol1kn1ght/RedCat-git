@@ -21,11 +21,11 @@ class Command {
 
     if (member)
       var club = clubData.filter(
-        (val) => val && val?.members?.includes(member.id)
+        val => val && val?.members?.includes(member.id)
       )[0];
     else
       var club = clubData.filter(
-        (val) => val.name.toLowerCase() === clubName.toLowerCase()
+        val => val.name.toLowerCase() === clubName.toLowerCase()
       )[0];
     if (member) {
       if (!club)
@@ -45,7 +45,7 @@ class Command {
       if (!userAdmin) club.admins.splice(club.admins.indexOf(admin), 1);
     }
     var membersFilter = club.members.filter(
-      (val) => !club.admins.includes(val) && val !== club.owner
+      val => !club.admins.includes(val) && val !== club.owner
     );
     var membersArr = club.admins.concat(membersFilter);
     var fieldsArr = [];
@@ -77,7 +77,7 @@ class Command {
 
     const embed = new Discord.MessageEmbed()
       .setTitle(club.name)
-      .setThumbnail(clubOwner.user.displayAvatarURL({ dynamic: true }))
+      .setThumbnail(clubOwner.user.displayAvatarURL({dynamic: true}))
       .addField(`:star: Овнер:`, clubOwner.user.tag, true)
       .addField(
         `:money_with_wings: Копилка:`,
@@ -129,13 +129,13 @@ class Command {
 
     clubs.updateOne(
       {
-        owner: club.owner,
+        owner: club.owner
       },
       {
         $set: {
           members: club.members,
-          admins: club.admins,
-        },
+          admins: club.admins
+        }
       }
     );
 
@@ -145,7 +145,7 @@ class Command {
       (r, u) =>
         u.id === message.author.id && pagesEmojis.includes(r.emoji.name),
       {
-        time: 180000,
+        time: 180000
       }
     );
     var setReacts = async () => {
@@ -166,9 +166,9 @@ class Command {
           break;
         default:
       }
-      collector.on("end", () => {
-        menuMsg.reactions.removeAll();
-      });
+    });
+    collector.on("end", () => {
+      menuMsg.reactions.removeAll();
     });
   }
 
@@ -180,14 +180,14 @@ class Command {
       type: "Клубы",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
   #getSlashOptions() {
     return {
       name: "club-info",
-      description: this.options.description,
+      description: this.options.description
     };
   }
 }
