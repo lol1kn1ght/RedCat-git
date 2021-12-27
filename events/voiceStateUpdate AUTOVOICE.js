@@ -30,7 +30,7 @@ class Event {
                     ...news.channel.permissionOverwrites.array(),
                     {
                       id: news.member.id,
-                      allow: ["PRIORITY_SPEAKER"]
+                      allow: ["CREATE_INSTANT_INVITE"]
                     },
                     {
                       id: bot.user.id,
