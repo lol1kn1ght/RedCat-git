@@ -137,6 +137,7 @@ class Command {
         break;
 
       case "hide":
+      case "спрятать":
         let permissions_arr = channel.permissionOverwrites.array();
 
         let new_permissions = [
@@ -172,7 +173,7 @@ class Command {
       default:
         f.msgFalse(
           message,
-          `Вы неправильно указали опции: \nДоступные опции: \`название, лимит, открыть, закрыть, выгнать, бан, разбан\``
+          `Вы неправильно указали опции: \nДоступные опции: \`название, лимит, открыть, закрыть, выгнать, бан, разбан, спрятать\``
         );
     }
   }
