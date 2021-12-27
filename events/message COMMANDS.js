@@ -16,7 +16,7 @@ class Event {
 
     try {
       var commands = Object.keys(Bot.commands);
-      var commandName = commands.filter((val) =>
+      var commandName = commands.filter(val =>
         val.split(" ").includes(command)
       )[0];
       if (!commandName) return;
@@ -30,9 +30,7 @@ class Event {
         return;
 
       let db = mongo.db(message.guild.id).collection("settings");
-      let guild_settings = await db
-        .find({ guildID: message.guild.id })
-        .toArray();
+      let guild_settings = await db.find({guildID: message.guild.id}).toArray();
       f.server_settings = guild_settings[0] || {};
 
       f.prefix = guild_settings.prefix || f.config.prefix;
@@ -43,9 +41,9 @@ class Event {
         message.member,
         message,
         Command.options.type,
-        { permissions: command_options.permissions },
-        { channels: command_options.allowedChannels },
-        { roles: command_options.allowedRoles }
+        {permissions: command_options.permissions},
+        {channels: command_options.allowedChannels},
+        {roles: command_options.allowedRoles}
       );
 
       if (!check_permission) return message.react("❌");

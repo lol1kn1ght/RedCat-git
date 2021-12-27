@@ -1,6 +1,5 @@
 {
   "owner": "348038599083556864",
-  "prefix": ";",
   "color": "#50CA1F",
   "colorFalse": "#CB1A1A",
   "defColor": "#D8C250",
@@ -16,5 +15,5 @@
     "Магазин Клубов",
     "Клубы"
   ],
-  "slash_commands": true
+  "slash_commands": false
 }

@@ -6,16 +6,17 @@ var f = {
   parse_duration: require("parse-duration"),
   pages_menu: require("../functions/pagesMenu"),
   club_day_income: {},
+  Profile: require("../functions/getProfile"),
   push_item: require("../functions/itemPush"),
   splice_item: require("../functions/spliceItem"),
   day_income: {},
-  msg: async function (msg, text, options) {
+  msg: async function(msg, text, options) {
     var Discord = require("discord.js");
     var embed = new Discord.MessageEmbed()
       .setAuthor(
         msg.author.tag,
         msg.author.displayAvatarURL({
-          dynamic: true,
+          dynamic: true
         })
       )
       .setDescription(text)
@@ -25,13 +26,13 @@ var f = {
     if (options) embed = Object.assign(embed, options);
     return msg.channel.send(embed);
   },
-  msgFalse: async function (msg, text, options) {
+  msgFalse: async function(msg, text, options) {
     var Discord = require("discord.js");
     var embed = new Discord.MessageEmbed()
       .setAuthor(
         msg.author.tag,
         msg.author.displayAvatarURL({
-          dynamic: true,
+          dynamic: true
         })
       )
       .setDescription(text)
@@ -40,8 +41,10 @@ var f = {
 
     if (options) embed = Object.assign(embed, options);
     return msg.channel.send(embed);
-  },
+  }
 };
+
+f.config.prefix = require("./constants.json").prefix;
 
 f.currency = f.config.currencyIcon;
 module.exports = f;
