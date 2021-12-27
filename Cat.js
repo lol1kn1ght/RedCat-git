@@ -3,8 +3,10 @@ const client = new Discord.Client();
 const fs = require("fs");
 const util = require("util");
 const Slash_client = require("discord-slash-commands-client").Client;
-const mongo_config = require("./config/mongo.json");
-const token = require("./config/token.json").token;
+const constants = require("./config/constants.json");
+
+const mongo_config = constants.db;
+const {token} = constants;
 
 let f = require(`./config/modules.js`);
 
