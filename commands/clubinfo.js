@@ -57,7 +57,7 @@ class Command {
         club.members.splice(club.members.indexOf(userId), 1);
         continue;
       }
-      var members = `${user.user.tag}${
+      var members = `\`${user.user.tag}\`${
         user.id === club.owner
           ? `:star_struck:`
           : club.admins.includes(user.id)
