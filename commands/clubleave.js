@@ -26,7 +26,6 @@ class Command {
     let club_role = message.guild.roles.cache.find(role => role.id == club.role)
     if (club_role && message.member.roles.cache.has(club_role))
         message.member.roles.remove(club_role);
-    }
 
     clubs_db.updateOne(
       {
