@@ -121,9 +121,9 @@ class Event {
     f.club_day_income[message.author.id] = author_income;
   }
 
-  check_today() {
+  check_today(date) {
     let today_date = new Date();
-    let date = new Date();
+
     return (
       date.getDate() === today_date.getDate() &&
       date.getMonth() === today_date.getMonth() &&
