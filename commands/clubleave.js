@@ -20,6 +20,8 @@ class Command {
       );
 
     club.members.splice(club.members.indexOf(message.member.id), 1);
+    if (club.admins && club.admins.includes(member.id))
+      club.admins.splice(club.admins.indexOf(member.id), 1);
 
     clubs_db.updateOne(
       {

@@ -83,7 +83,9 @@ class Command {
         }
       }
     );
-
+    let club_role = message.guild.roles.cache.find(role => role.id == club.role)
+    if (club_role)
+      member.roles.add(club_role);
     f.msg(message, `Вы успешно приняли **${member.user.tag}** в свой клуб.`);
   }
 
