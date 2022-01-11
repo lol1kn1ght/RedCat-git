@@ -24,7 +24,7 @@ class Command {
       club.admins.splice(club.admins.indexOf(message.member.id), 1);
 
     let club_role = message.guild.roles.cache.find(role => role.id == club.role)
-    if (club_role && club_role in message.member.roles)
+    if (club_role && message.member.roles.includes(club_role))
       message.member.roles.remove(club_role);
 
     clubs_db.updateOne(
@@ -33,6 +33,7 @@ class Command {
       },
       {
         $set: {
+          admins: club.admins,
           members: club.members,
         },
       }
