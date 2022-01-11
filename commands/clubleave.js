@@ -25,7 +25,7 @@ class Command {
 
     let club_role = message.guild.roles.cache.find(role => role.id == club.role)
     if (club_role) {
-      if (message.member.roles.includes(club_role))
+      if (message.member.roles.cache.some(club_role))
         message.member.roles.remove(club_role);
     }
 
