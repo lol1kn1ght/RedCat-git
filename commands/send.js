@@ -401,14 +401,15 @@ class Command {
     }
 
     async function access(embed) {
-      var result = await message.channel.send(`Результат:`, embed);
+      var result = await message.channel.send({ content: `Результат:`, embeds: [embed] });
       for (let val of reactions) {
         await result.react(val);
       }
       var reacts = await result.awaitReactions(
-        (r, u) =>
-          reactions.includes(r.emoji.name) && u.id === message.author.id,
+
         {
+          filter: (r, u) =>
+          reactions.includes(r.emoji.name) && u.id === message.author.id,
           max: 1,
           time: f.parse_duration(`3m`),
         }
@@ -456,7 +457,7 @@ class Command {
                 access(embed);
                 return;
               }
-              channel.send(embed);
+              channel.send({ embeds: [embed] });
               message.channel.send(reactions[0]);
               break;
             case `2`:
@@ -499,7 +500,7 @@ class Command {
                   `${f.na} Мне не удалось найти нужное вам сообщение. Попробуйте еще раз.`
                 );
               try {
-                embedmsg.edit(embed);
+                embedmsg.edit({ embeds: [embed] });
                 message.channel.send(reactions[0]);
               } catch (e) {
                 message.channel.send(
