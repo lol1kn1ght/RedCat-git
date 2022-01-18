@@ -401,7 +401,7 @@ class Command {
     }
 
     async function access(embed) {
-      var result = await message.channel.send(`Результат:`, embed);
+      var result = await message.channel.send({ content: `Результат:`, embeds: [embed] });
       for (let val of reactions) {
         await result.react(val);
       }
