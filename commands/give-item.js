@@ -9,13 +9,17 @@ class Command {
     let usage = `\nИспользование: \`${this.options.usage}\``;
 
     let member =
-      message.guild.members.cache.get(args[0]) ||
-      message.mentions.members.first();
+      message.mentions.members.first() ||
+      (await message.guild.members.fetch(args[0]));
+
     if (!member) return f.msgFalse(message, "Вы не указали участника." + usage);
 
     args.splice(0, 1);
 
-    let item_name = args.join(" ").toLowerCase().trim();
+    let item_name = args
+      .join(" ")
+      .toLowerCase()
+      .trim();
 
     if (!item_name)
       return f.msgFalse(message, "Вы не указали название предмета." + usage);
@@ -24,7 +28,7 @@ class Command {
     let shop_data = await shop_db.find().toArray();
 
     let item = shop_data.filter(
-      (item) => item.name.toLowerCase() === item_name
+      item => item.name.toLowerCase() === item_name
     )[0];
     if (!item) {
       var amount = Number(args[args.length - 1]);
@@ -34,9 +38,7 @@ class Command {
       }
       item_name = args.join(" ").trim();
 
-      item = shop_data.filter(
-        (item) => item.name.toLowerCase() === item_name
-      )[0];
+      item = shop_data.filter(item => item.name.toLowerCase() === item_name)[0];
 
       if (!item)
         return f.msgFalse(message, "Вы указали несуществующий предмет.");
@@ -61,7 +63,7 @@ class Command {
       type: "Магазин",
       permissions: ["ADMINISTRATOR"],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
@@ -74,21 +76,21 @@ class Command {
           name: "member_id",
           description: "айди",
           type: 3,
-          required: true,
+          required: true
         },
         {
           name: "item_name",
           description: "название предмета",
           type: 3,
-          required: true,
+          required: true
         },
         {
           name: "amount",
           description: "количество предметов",
           type: 4,
-          required: true,
-        },
-      ],
+          required: true
+        }
+      ]
     };
   }
 }

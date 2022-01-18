@@ -8,8 +8,9 @@ class Command {
     let db = mongo.db(message.guild.id);
 
     let member =
-      message.guild.members.cache.get(args[0]) ||
-      message.mentions.members.first();
+      message.mentions.members.first() ||
+      (await message.guild.members.fetch(args[0]));
+
     if (!member)
       return f.msgFalse(
         message,
@@ -35,7 +36,7 @@ class Command {
     let shop_data = await shop_db.find().toArray();
 
     let item = shop_data.filter(
-      (item) => item.name.toLowerCase() === item_name
+      item => item.name.toLowerCase() === item_name
     )[0];
 
     if (!item) {
@@ -45,10 +46,11 @@ class Command {
         args.splice(args.length - 1, 1);
       }
 
-      item_name = args.join(" ").toLowerCase().trim();
-      item = shop_data.filter(
-        (item) => item.name.toLowerCase() === item_name
-      )[0];
+      item_name = args
+        .join(" ")
+        .toLowerCase()
+        .trim();
+      item = shop_data.filter(item => item.name.toLowerCase() === item_name)[0];
 
       if (!item)
         return f.msgFalse(message, `Вы указали несуществующий предмет.`);
@@ -74,7 +76,7 @@ class Command {
       type: "WIP",
       permissions: ["ADMINISTRATOR"],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
@@ -87,21 +89,21 @@ class Command {
           name: "member_id",
           description: "айди участника",
           type: 3,
-          required: true,
+          required: true
         },
         {
           name: "item_name",
           description: "название предмета",
           type: 3,
-          required: true,
+          required: true
         },
         {
           name: "amount",
           description: "количество предметов",
           type: 4,
-          required: false,
-        },
-      ],
+          required: false
+        }
+      ]
     };
   }
 }

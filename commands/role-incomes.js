@@ -11,7 +11,7 @@ class Command {
     var db = mongo.db(message.guild.id);
 
     let items_db = db.collection("income");
-    let items_data = await items_db.find().toArray();
+    let items_data = await items_db.find().sort({ income: -1 }).toArray();
     if (!items_data[0]) return f.msgFalse(message, "Ролей с заработком нет.");
     let pages = [];
     let curr_page = 0;

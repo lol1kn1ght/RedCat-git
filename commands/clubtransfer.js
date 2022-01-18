@@ -9,7 +9,8 @@ class Command {
 
     let member =
       message.mentions.members.first() ||
-      message.guild.members.cache.get(args[0]);
+      (await message.guild.members.fetch(args[0]));
+
     if (!member)
       return f.msgFalse(message, "Вы не указали нового владельца клуба?");
 
@@ -33,7 +34,8 @@ class Command {
     );
 
     let ans = await message.channel
-      .awaitMessages((msg) => msg.author.id === message.author.id, {
+      .awaitMessages({
+        filter: (msg) => msg.author.id === message.author.id,
         max: 1,
         time: 180000,
         errors: ["time"],

@@ -15,15 +15,14 @@ function checkMemberPerms(member, message, type, ...permissions_input) {
     allow_roles = false;
 
   let channels_perms =
-    permissions_input.filter((permission) => permission["channels"])[0]
+    permissions_input.filter(permission => permission["channels"])[0]
       .channels || [];
 
   let allowed_roles =
-    permissions_input.filter((permission) => permission["roles"])[0].roles ||
-    [];
+    permissions_input.filter(permission => permission["roles"])[0].roles || [];
 
   let permissions_member =
-    permissions_input.filter((permission) => permission["permissions"])[0]
+    permissions_input.filter(permission => permission["permissions"])[0]
       .permissions || [];
 
   if (
@@ -37,20 +36,18 @@ function checkMemberPerms(member, message, type, ...permissions_input) {
     if (permissions_member.includes("OWNER")) {
       if (member.id !== f.config.owner) return allow_permissions;
     }
-    if (!member.hasPermission(permissions_member)) allow_permissions = false;
+    if (!member.permissions.has(permissions_member)) allow_permissions = false;
   }
 
   if (allowed_roles[0]) {
     if (
-      member.roles.cache
-        .filter((role) => allowed_roles.includes(role.id))
-        .first()
+      member.roles.cache.filter(role => allowed_roles.includes(role.id)).first()
     )
       allow_roles = true;
   }
   if (
     type === "WIP" &&
-    !member.hasPermission("ADMINISTRATOR") &&
+    !member.permissions.has("ADMINISTRATOR") &&
     member.id !== f.config.owner
   )
     return false;

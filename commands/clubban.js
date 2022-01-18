@@ -10,12 +10,8 @@ class Command {
     let db = mongo.db(message.guild.id);
 
     let member =
-      message.guild.members.cache.get(args[0]) ||
       message.mentions.members.first() ||
-      message.guild.members.cache.find(
-        (guild_member) =>
-          guild_member.user.tag.toLowerCase() === args.join(" ").toLowerCase()
-      );
+      (await message.guild.members.fetch(args[0]));
 
     if (!member) return f.msgFalse(message, "Вы не указали участника.");
 
@@ -25,7 +21,7 @@ class Command {
     let clubs_db = db.collection("clubs");
     let clubs_data = await clubs_db.find().toArray();
     let club = clubs_data.filter(
-      (club) =>
+      club =>
         club.owner === message.author.id ||
         club.aminds?.includes(message.author.id)
     )[0];
@@ -55,8 +51,16 @@ class Command {
     //     `Указанный участник не состоит в вашем клубе.`
     //   );
 
-    if (club.members.includes(member.id))
+    if (club.members.includes(member.id)) {
       club.members.splice(club.members.indexOf(member.id), 1);
+      let club_role = message.guild.roles.cache.find(
+        role => role.id == club.role
+      );
+
+      if (club_role && member.roles.cache.has(club_role.id))
+        member.roles.remove(club_role);
+    }
+
     if (club.admins?.includes(member.id))
       club.admins.splice(club.admins.indexOf(member.id), 1);
 
@@ -64,14 +68,14 @@ class Command {
 
     clubs_db.updateOne(
       {
-        owner: club.owner,
+        owner: club.owner
       },
       {
         $set: {
           admins: club.admins,
           members: club.members,
-          banneds: club.banneds,
-        },
+          banneds: club.banneds
+        }
       }
     );
 
@@ -86,14 +90,14 @@ class Command {
       type: "Клубы",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
   #getSlashOptions() {
     return {
       name: "clubban",
-      description: this.options.description,
+      description: this.options.description
     };
   }
 }

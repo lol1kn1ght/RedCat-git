@@ -16,11 +16,19 @@ class Command {
       );
 
     var amount = Number(args[1]);
-    if (isNaN(amount) || amount < 0)
+    if (isNaN(amount) || amount <= 0)
       return f.msgFalse(message, "Вы неправильно указали сумму для передачи.");
 
     var target = await Profile(db, member.id);
     await target.addMoney(amount);
+
+    f.economy_logs({
+      member_for: member,
+      member_by: message.member,
+      reason: "Add-money command",
+      type: "+",
+      amount
+    });
     f.msg(
       message,
       `Вы успешно добавили **${f.discharge(amount)}${f.currency}** на счет **${
@@ -38,7 +46,7 @@ class Command {
       type: "Экономика",
       permissions: [`ADMINISTRATOR`],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
@@ -52,15 +60,15 @@ class Command {
           description:
             "упоминание участника кому перевести деньги {ADMINISTRATOR}",
           type: 6,
-          required: true,
+          required: true
         },
         {
           name: "amount",
           description: "количество монет для добавления",
           required: true,
-          type: 4,
-        },
-      ],
+          type: 4
+        }
+      ]
     };
   }
 }

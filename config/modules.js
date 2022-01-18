@@ -9,6 +9,7 @@ var f = {
   Profile: require("../functions/getProfile"),
   push_item: require("../functions/itemPush"),
   splice_item: require("../functions/spliceItem"),
+  economy_logs: require("../functions/economyLogs"),
   day_income: {},
   msg: async function(msg, text, options) {
     var Discord = require("discord.js");
@@ -24,7 +25,7 @@ var f = {
       .setColor(this.config.color);
 
     if (options) embed = Object.assign(embed, options);
-    return msg.channel.send(embed);
+    return msg.channel.send({embeds: [embed]});
   },
   msgFalse: async function(msg, text, options) {
     var Discord = require("discord.js");
@@ -40,7 +41,7 @@ var f = {
       .setColor(this.config.colorFalse);
 
     if (options) embed = Object.assign(embed, options);
-    return msg.channel.send(embed);
+    return msg.channel.send({embeds: [embed]});
   }
 };
 
