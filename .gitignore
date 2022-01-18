@@ -2,5 +2,6 @@
 /config/constants.json
 /config/mongo.json
 /config/token.json
+package-lock.json
 
 start.bat
