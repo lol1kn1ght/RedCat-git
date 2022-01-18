@@ -392,13 +392,11 @@ class Command {
 
     async function getRespone(text) {
       if (text) message.channel.send(text);
-      var response = await message.channel.awaitMessages(
-        (msg) => msg.author.id === message.author.id,
-        {
-          max: 1,
-          time: f.parse_duration(`3m`),
-        }
-      );
+      var response = await message.channel.awaitMessages({
+        filter: (msg) => msg.author.id === message.author.id,
+        max: 1,
+        time: f.parse_duration(`3m`),
+      });
       return response;
     }
 

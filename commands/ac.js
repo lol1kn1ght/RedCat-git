@@ -59,13 +59,13 @@ class Command {
         break;
       case "открыть":
       case "open":
-        channel.updateOverwrite(message.guild.id, {
+        channel.permissionOverwrites.edit(message.guild.id, {
           CONNECT: true
         });
         f.msg(message, `Вы успешно открыли дверь в комнату для других людей.`);
         break;
       case "закрыть":
-        channel.updateOverwrite(message.guild.id, {
+        channel.permissionOverwrites.edit(message.guild.id, {
           CONNECT: false
         });
         f.msg(message, `Вы успешно закрыли дверь в комнату для других людей.`);
@@ -87,7 +87,7 @@ class Command {
             message,
             `Этот человек не находится в вашей комнате.`
           );
-        member.voice.setChannel(null);
+        member.voice.disconnect();
         f.msg(
           message,
           `Вы успешно выгнали **${member.user.tag}** из своей комнаты.`
@@ -105,11 +105,11 @@ class Command {
           );
         if (member.user.bot)
           return f.msgFalse(message, `Вы не можете забанить бота.`);
-        channel.updateOverwrite(member.id, {
+        channel.permissionOverwrites.edit(member.id, {
           CONNECT: false
         });
         if (member.voice.channel && member.voice.channel.id === channel.id)
-          member.voice.setChannel(null);
+          member.voice.disconnect();
         f.msg(
           message,
           `Вы успешно запретили входить участнику **${member.user.tag}** в ваш канал.`
@@ -127,7 +127,7 @@ class Command {
           );
         if (member.user.bot)
           return f.msgFalse(message, `Вы не можете разбанить бота.`);
-        channel.updateOverwrite(member.id, {
+        channel.permissionOverwrites.edit(member.id, {
           CONNECT: null
         });
         f.msg(
@@ -138,7 +138,9 @@ class Command {
 
       case "hide":
       case "спрятать":
-        let permissions_arr = channel.permissionOverwrites.array();
+        let permissions_arr = [
+          ...message.channel.permissionOverwrites.cache
+        ].map(permission => permission[1]);
 
         let new_permissions = [
           {
@@ -164,7 +166,7 @@ class Command {
           });
         }
 
-        channel.overwritePermissions(new_permissions);
+        channel.permissionOverwrites.set(new_permissions);
 
         f.msg(message, "Вы успешно закрыли канал.");
         break;

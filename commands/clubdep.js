@@ -47,6 +47,14 @@ class Command {
       }
     );
 
+    f.economy_logs({
+      member_for: message.member,
+      member_by: message.guild.me,
+      reason: "clubdep command: deposit to club",
+      type: "-",
+      amount
+    });
+
     f.msg(
       message,
       `Вы успешно перевели **${f.discharge(amount)}${
@@ -60,7 +68,7 @@ class Command {
       aliases: "clubdep",
       description: "Положить валюту на счет своего клуба.",
       enabled: true,
-      type: "WIP",
+      type: "Клубы",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: []

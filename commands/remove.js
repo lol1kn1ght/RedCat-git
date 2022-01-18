@@ -10,7 +10,8 @@ class Command {
     var db = mongo.db(message.guild.id);
     var member =
       message.mentions.members.first() ||
-      message.guild.members.cache.get(args[0]);
+      (await message.guild.members.fetch(args[0]));
+
     if (!member)
       return f.msgFalse(
         message,
@@ -28,6 +29,14 @@ class Command {
         "У выбранного вами участника денег меньше, чем вы хотите удалить."
       );
     await target.removeMoney(amount);
+    f.economy_logs({
+      member_for: member,
+      member_by: message.member,
+      reason: `remove-moeny: Given money to ${member.user.tag}`,
+      type: "-",
+      amount
+    });
+
     f.msg(
       message,
       `Вы успешно удалили **${f.discharge(amount)}${f.currency}** со счета **${
@@ -46,7 +55,7 @@ class Command {
       type: "Экономика",
       permissions: ["ADMINISTRATOR"],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
@@ -59,15 +68,15 @@ class Command {
           name: "member-mention",
           description: "упоминание пользователя",
           type: 6,
-          required: true,
+          required: true
         },
         {
           name: "amount",
           description: "количество денег для удаления",
           type: 4,
-          required: true,
-        },
-      ],
+          required: true
+        }
+      ]
     };
   }
 }

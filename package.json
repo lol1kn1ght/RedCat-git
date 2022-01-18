@@ -1,6 +1,6 @@
 {
   "name": "Red Cat",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "Бот для кота",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "discord-buttons": "^3.2.1",
     "discord-slash-commands-client": "^1.2.1",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.1.0",
     "fs": "0.0.1-security",
     "github-webhook-handler": "^1.0.0",
     "mongodb": "^3.6.6",
