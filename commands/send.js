@@ -406,9 +406,10 @@ class Command {
         await result.react(val);
       }
       var reacts = await result.awaitReactions(
-        (r, u) =>
-          reactions.includes(r.emoji.name) && u.id === message.author.id,
+
         {
+          filter: (r, u) =>
+          reactions.includes(r.emoji.name) && u.id === message.author.id,
           max: 1,
           time: f.parse_duration(`3m`),
         }
