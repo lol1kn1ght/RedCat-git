@@ -125,7 +125,7 @@ class Command {
     }
 
     var currentPage = 0;
-    var menuMsg = await message.channel.send(pages[0]);
+    var menuMsg = await message.channel.send({ embeds: [pages[0]]});
 
     clubs.updateOne(
       {
@@ -156,11 +156,11 @@ class Command {
       switch (r.emoji.name) {
         case pagesEmojis[0]:
           if (currentPage - 1 < 0) return;
-          menuMsg.edit(pages[--currentPage]);
+          menuMsg.edit({ embeds: [pages[--currentPage]]});
           break;
         case pagesEmojis[1]:
           if (currentPage + 1 > pages.length - 1) return;
-          menuMsg.edit(pages[++currentPage]);
+          menuMsg.edit({ embeds: [pages[++currentPage]]});
           break;
         default:
       }
