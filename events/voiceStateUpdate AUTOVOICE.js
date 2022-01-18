@@ -24,13 +24,16 @@ class Event {
                 }`,
                 {
                   parent: news.channel.parent.id,
-                  type: `voice`,
+                  type: `GUILD_VOICE`,
                   bitrate: 65000,
+                  userLimit: news.channel.userLimit,
                   permissionOverwrites: [
-                    ...news.channel.permissionOverwrites.array(),
+                    ...[...news.channel.permissionOverwrites.cache].map(
+                      permission => permission[1]
+                    ),
                     {
                       id: news.member.id,
-                      allow: ["CREATE_INSTANT_INVITE"]
+                      allow: ["PRIORITY_SPEAKER"]
                     },
                     {
                       id: bot.user.id,

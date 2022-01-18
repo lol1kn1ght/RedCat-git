@@ -20,7 +20,7 @@ class Command {
     let items_data = await items_db.find().toArray();
 
     let item = items_data.filter(
-      (item) => item.name.toLowerCase() === item_name
+      item => item.name.toLowerCase() === item_name
     )[0];
     if (!item) return f.msgFalse(message, "Вы указали несуществующий предмет.");
 
@@ -35,6 +35,15 @@ class Command {
       );
 
     author.removeMoney(item.cost);
+
+    f.economy_logs({
+      member_for: message.member,
+      member_by: message.guild.me,
+      reason: `Buy: Bought "${item.name}"`,
+      type: "-",
+      amount: item.cost
+    });
+
     f.push_item(db, message.author.id, item.id, 1);
     f.msg(
       message,
@@ -53,14 +62,14 @@ class Command {
       type: "Магазин",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
   #getSlashOptions() {
     return {
       name: "buy",
-      description: this.options.description,
+      description: this.options.description
     };
   }
 }

@@ -61,6 +61,14 @@ class Event {
     let author_profile = await Profile(db, message.author.id);
 
     author_profile.addMoney(income_amount);
+    f.economy_logs({
+      member_for: message.member,
+      member_by: message.guild.me,
+      reason: `ROLE-COLLECT`,
+      type: "+",
+      amount: income_amount
+    });
+
     author_profile.updateData({last_collect: date.getTime()});
 
     author_income.last_collect = date.getTime();

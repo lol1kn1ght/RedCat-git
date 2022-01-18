@@ -1,11 +1,11 @@
-module.exports = async function (message, pages, time, filter, start_page) {
+module.exports = async function(message, pages, time, filter, start_page) {
   if (!message || !pages || !pages[0])
     throw new Error("Осутствуют обязательные аргументы.");
   if (!filter) filter = () => true;
   if (!time) time = 60000;
 
   let menu_msg = await message.channel.send({
-    embed: pages[start_page - 1] || pages[0],
+    embeds: [pages[start_page - 1] || pages[0]]
   });
   if (!pages[1]) return;
 
@@ -13,13 +13,11 @@ module.exports = async function (message, pages, time, filter, start_page) {
   let page_emojis = f.config.menuEmojis; // Эмоджи для листания страниц
   let menu_page = user_page - 1; // Текущая страница при листании меню
 
-  let pages_collector = menu_msg.createReactionCollector(
-    (reaction, user) =>
+  let pages_collector = menu_msg.createReactionCollector({
+    filter: (reaction, user) =>
       filter(reaction, user) && page_emojis.includes(reaction.emoji.name),
-    {
-      time: time,
-    }
-  ); // Создание коллектора реакций для листания страниц
+    time: time
+  }); // Создание коллектора реакций для листания страниц
 
   let set_reactions = async () => {
     for (let menu_emoji of page_emojis) await menu_msg.react(menu_emoji);
@@ -33,13 +31,13 @@ module.exports = async function (message, pages, time, filter, start_page) {
       case page_emojis[0]:
         // Листнуть страницу назад
         if (menu_page - 1 < 0) return;
-        menu_msg.edit(pages[--menu_page]);
+        menu_msg.edit({embeds: [pages[--menu_page]]});
         break;
 
       case page_emojis[1]:
         // Листнуть страницу вперед
         if (menu_page + 1 > pages.length - 1) return;
-        menu_msg.edit(pages[++menu_page]);
+        menu_msg.edit({embeds: [pages[++menu_page]]});
         break;
     }
   });

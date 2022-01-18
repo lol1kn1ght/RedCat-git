@@ -260,10 +260,7 @@ class Command {
 
   async messageAwait(message, filter) {
     let new_message = await message.channel
-      .awaitMessages(filter, {
-        max: 1,
-        time: 180000,
-      })
+      .awaitMessages({ filter, max: 1, time: 180000 })
       .catch((e) => {
         throw new Error("timeout expired");
       });

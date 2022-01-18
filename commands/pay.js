@@ -42,6 +42,22 @@ class Command {
     author.removeMoney(amount);
     user.addMoney(amount);
 
+    f.economy_logs({
+      member_for: message.member,
+      member_by: member,
+      reason: `Give: Given money to ${member.user.tag}`,
+      type: "-",
+      amount: amount
+    });
+
+    f.economy_logs({
+      member_for: member,
+      member_by: message.member,
+      reason: `Give: Given money to ${member.user.tag}`,
+      type: "+",
+      amount: amount
+    });
+
     f.msg(
       message,
       `Вы успешно перевели **${f.discharge(amount)}**${f.currency} на счет **${
@@ -59,7 +75,7 @@ class Command {
       type: "Экономика",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
@@ -72,15 +88,15 @@ class Command {
           name: "member_mention",
           description: "упоминание участника кому передать деньги",
           type: 6,
-          required: true,
+          required: true
         },
         {
           name: "amount",
           description: "количество денег для передачи",
           type: 4,
-          required: true,
-        },
-      ],
+          required: true
+        }
+      ]
     };
   }
 }

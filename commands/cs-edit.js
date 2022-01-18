@@ -28,7 +28,7 @@ class Command {
     let items_data = await shop_db.find().toArray();
     console.log(items_data);
     let item = items_data.filter(
-      item => item.name.toLowerCase() === item_name
+      (item) => item.name.toLowerCase() === item_name
     )[0];
     if (!item)
       return f.msgFalse(
@@ -40,13 +40,13 @@ class Command {
       case "name":
       case "название":
         let ask_name = await f.msg(message, "Укажите новое имя для предмета:", {
-          color: f.config.defColor
+          color: f.config.defColor,
         });
 
         let name_message = await this.messageAwait(
           ask_name,
-          msg => msg.author.id === message.author.id
-        ).catch(e => {
+          (msg) => msg.author.id === message.author.id
+        ).catch((e) => {
           f.msgFalse(message, `${message.author}, Время ожидания истекло.`);
           return;
         });
@@ -65,8 +65,8 @@ class Command {
 
         let cost_message = await this.messageAwait(
           ask_cost,
-          msg => msg.author.id === message.author.id
-        ).catch(e => {
+          (msg) => msg.author.id === message.author.id
+        ).catch((e) => {
           console.log(e);
           f.msgFalse(message, `${message.member}, Время ожидания истекло.`);
           return;
@@ -91,14 +91,14 @@ class Command {
           message,
           "Укажите новое сообщение для отправки в чат при покупке предмета.\nПоставьте `$$` что бы весь текст после этих знаков обернуть в embed.",
           {
-            color: f.config.defColor
+            color: f.config.defColor,
           }
         );
 
         let new_message = await this.messageAwait(
           ask_message,
-          msg => msg.member.id === message.author.id
-        ).catch(e => {
+          (msg) => msg.member.id === message.author.id
+        ).catch((e) => {
           f.msgFalse(message, `${message.member}, Время ожидания истекло.`);
           return;
         });
@@ -119,13 +119,13 @@ class Command {
         let ask_desc = await f.msg(
           message,
           "Укажите новое описание предмета.",
-          {color: f.config.defColor}
+          { color: f.config.defColor }
         );
 
         let new_desc = await this.messageAwait(
           ask_desc,
-          msg => msg.author.id === message.author.id
-        ).catch(e => {
+          (msg) => msg.author.id === message.author.id
+        ).catch((e) => {
           f.msgFalse(message, `${message.member}, Время ожидания истекло.`);
           return;
         });
@@ -152,21 +152,18 @@ class Command {
   async updateData(data) {
     this.shop_db.updateOne(
       {
-        id: data.id
+        id: data.id,
       },
       {
-        $set: data
+        $set: data,
       }
     );
   }
 
   async messageAwait(message, filter) {
     let new_message = await message.channel
-      .awaitMessages(filter, {
-        max: 1,
-        time: 180000
-      })
-      .catch(e => {
+      .awaitMessages({ filter, max: 1, time: 180000 })
+      .catch((e) => {
         throw new Error("timeout expired");
       });
 
@@ -182,14 +179,14 @@ class Command {
       type: "Магазин Клубов",
       permissions: ["ADMINISTRATOR"],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: []
+      allowedRoles: [],
     };
   }
 
   #getSlashOptions() {
     return {
       name: "club-shop-edit",
-      description: this.options.description
+      description: this.options.description,
     };
   }
 }

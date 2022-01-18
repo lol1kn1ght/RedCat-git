@@ -11,7 +11,7 @@ class Command {
     this.clubs_db = clubs_db;
 
     let club = clubs_data.filter(
-      club =>
+      (club) =>
         club.owner === message.author.id ||
         (club.admins || []).includes(message.author.id)
     )[0];
@@ -69,7 +69,8 @@ class Command {
       case "image":
       case "картинка":
       case "изображение":
-        let image_regex = /(https?:\/\/)?[\w\-~]+(\.[\w\-~]+)+(\/[\w\-~@:%]*)*(#[\w\-]*)?(\?[^\s]*)?/gi;
+        let image_regex =
+          /(https?:\/\/)?[\w\-~]+(\.[\w\-~]+)+(\/[\w\-~@:%]*)*(#[\w\-]*)?(\?[^\s]*)?/gi;
         message.channel.send("Укажите новое изображение вашего клуба:");
 
         let await_message = await this.awaitMessages(message, 180000);
@@ -148,12 +149,13 @@ class Command {
 
   async awaitMessages(message, time) {
     let message_await = await message.channel
-      .awaitMessages(msg => msg.author.id === message.author.id, {
+      .awaitMessages({
+        filter: (msg) => msg.author.id === message.author.id,
         time: time,
         max: 1,
-        errors: ["time"]
+        errors: ["time"],
       })
-      .catch(e => {
+      .catch((e) => {
         return f.msgFalse(message, "Время ожидания истекло.");
       });
     return message_await;
@@ -162,10 +164,10 @@ class Command {
   async updateData(data) {
     this.clubs_db.updateOne(
       {
-        owner: data.owner
+        owner: data.owner,
       },
       {
-        $set: data
+        $set: data,
       }
     );
   }
@@ -178,14 +180,14 @@ class Command {
       type: "Клубы",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: []
+      allowedRoles: [],
     };
   }
 
   #getSlashOptions() {
     return {
       name: "club-edit",
-      description: this.options.description
+      description: this.options.description,
     };
   }
 }

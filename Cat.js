@@ -1,8 +1,10 @@
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const client = new Discord.Client({
+  intents: Object.values(Discord.Intents.FLAGS)
+});
 const fs = require("fs");
 const util = require("util");
-const Slash_client = require("discord-slash-commands-client").Client;
+
 const constants = require("./config/constants.json");
 
 const mongo_config = constants.db;
@@ -11,7 +13,6 @@ const {token} = constants;
 let f = require(`./config/modules.js`);
 
 const {MongoClient} = require("mongodb");
-const slash = new Slash_client(token, "813346729977315328");
 
 let green = "\x1b[32m";
 let red = "\x1b[31m";
@@ -149,32 +150,12 @@ class BotLaunch {
   async loadDMCommands() {}
 
   async clearSlashCommands() {
-    let guildID = f.config.slash_guild;
     console.log(
       `\n${green} ################### | Начинаю очистку прошлых слеш-команд | ####################\n`
     );
-    let before_commands = await slash.getCommands({
-      guildID: guildID
-    });
+
     await delete_slash();
-    async function delete_slash() {
-      let current_command = 0;
-      let slash_commands = await slash.getCommands({
-        guildID: guildID
-      });
-      if (!slash_commands[0])
-        return console.log(
-          `Успешно удалено ${before_commands.length} слеш-команд`
-        );
-
-      let slash_command = slash_commands[current_command++];
-      if (!slash_command) return;
-
-      await slash
-        .deleteCommand(slash_command.id, f.config.slash_guild)
-        .catch(e => {});
-      await delete_slash();
-    }
+    async function delete_slash() {}
     console.log(
       `\n${green} ################### | Закончил очистку прошлых слеш-команд | ####################\n`
     );
@@ -215,6 +196,8 @@ class BotLaunch {
 
   async login() {
     await this.bot.login(token);
+
+    global.bot = this.bot;
     console.log(`${cyan} ${this.bot.user.tag} Успешно запущен.\n`);
   }
 }

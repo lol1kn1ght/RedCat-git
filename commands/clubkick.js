@@ -10,12 +10,8 @@ class Command {
     let db = mongo.db(message.guild.id);
 
     let member =
-      message.guild.members.cache.get(args[0]) ||
       message.mentions.members.first() ||
-      message.guild.members.cache.find(
-        guild_member =>
-          guild_member.user.tag.toLowerCase() === args.join(" ").toLowerCase()
-      );
+      (await message.guild.members.fetch(args[0]));
 
     if (!member) return f.msgFalse(message, "Вы не указали участника.");
 
