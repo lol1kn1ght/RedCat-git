@@ -456,7 +456,7 @@ class Command {
                 access(embed);
                 return;
               }
-              channel.send(embed);
+              channel.send({ embeds: [embed] });
               message.channel.send(reactions[0]);
               break;
             case `2`:
@@ -499,7 +499,7 @@ class Command {
                   `${f.na} Мне не удалось найти нужное вам сообщение. Попробуйте еще раз.`
                 );
               try {
-                embedmsg.edit(embed);
+                embedmsg.edit({ embeds: [embed] });
                 message.channel.send(reactions[0]);
               } catch (e) {
                 message.channel.send(
