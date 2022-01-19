@@ -12,13 +12,13 @@ module.exports = function({amount, member_for, member_by, type, reason}) {
 
   let logs_embed = new MessageEmbed()
     .setDescription(
-      `\`Пользователь\`: ${member_for.user?.tag} ID: ${
+      `\`Пользователь\`: ${member_for.user} (\`${member_for.user?.tag}\` ID: ${
         member_for.id
-      }\n\`Сумма\`: ${type + "" + f.discharge(amount)}${
+      })\n\`Сумма\`: ${type + "" + f.discharge(amount)}${
         f.currency
-      }\n\`Причина\`: ${reason}\n\`Кем\`: ${member_by.user.tag} ID: ${
+      }\n\`Причина\`: ${reason}\n\`Кем\`: \`${member_by.user.tag}\` (ID: ${
         member_by.id
-      }`
+      })`
     )
     .setTitle("Изменение баланса")
     .setColor(type === "+" ? "GREEN" : "RED");
