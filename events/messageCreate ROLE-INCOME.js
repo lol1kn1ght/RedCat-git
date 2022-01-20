@@ -98,6 +98,8 @@ class Event {
       if (!club) {
         author_income.no_club = date.getTime();
         f.club_day_income[message.author.id] = author_income;
+
+        return;
       }
     }
 
