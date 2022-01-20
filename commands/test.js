@@ -15,23 +15,31 @@ class Command {
       new MessageButton()
         .setStyle("SECONDARY")
         .setEmoji("<a:r_wakeup:876654370081628161>")
-        .setCustomId("drgames"),
+        .setCustomId("763080675548332082"),
 
       new MessageButton()
         .setStyle("SECONDARY")
         .setEmoji("👀")
-        .setCustomId("poiskgames"),
+        .setCustomId("724513678149550161"),
 
       new MessageButton()
         .setStyle("SECONDARY")
         .setEmoji("🐺")
-        .setCustomId("poiskohot"),
+        .setCustomId("746029718217818132"),
 
       new MessageButton()
         .setStyle("SECONDARY")
         .setEmoji("<:RDR_rep_good:821121079279616021>")
-        .setCustomId("hachuverif")
+        .setCustomId("798422475905040445")
     );
+
+    let msg = await bot.channels.cache
+      .get("652521261058228236")
+      .messages.fetch("817426126350975017");
+
+    message.edit({
+      components: [rolesrow2]
+    });
   }
 
   #getOptions() {
