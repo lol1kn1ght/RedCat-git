@@ -2,17 +2,13 @@ class Event {
   constructor() {}
 
   async execute(bot, mongo, interaction) {
-    console.log(1);
     if (!interaction.isButton()) return;
-    console.log(2);
 
     if (!interaction.channel.id != "652521261058228236") return;
-    console.log(3);
 
-    let role = interaction.guild.roles.cache.get(interaction.customID);
+    let role = interaction.guild.roles.cache.get(interaction.customId);
 
     if (!role) return;
-    console.log(4);
 
     let interaction_member = interaction.member;
 
