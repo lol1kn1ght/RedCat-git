@@ -37,7 +37,7 @@ class Command {
       .get("652521261058228236")
       .messages.fetch("817426126350975017");
 
-    message.edit({
+    msg.edit({
       components: [rolesrow2]
     });
   }
