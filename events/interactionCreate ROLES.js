@@ -60,9 +60,9 @@ class Event {
           // Забираем доступ к поиску по другим играм, а в случае PS - ещё и к верификации
           if (
             role.id === "626800044884099082" &&
-            interaction_member.roles.cache.has("763080675548332082")
+            interaction_member.roles.cache.has("933946149147136041")
           )
-            interaction_member.roles.remove("763080675548332082");
+            interaction_member.roles.remove("933946149147136041");
 
           if (
             role.id === "598163957081178126" &&
@@ -96,17 +96,17 @@ class Event {
     }
 
     // Обработка кнопки "другие игры"
-    // 763080675548332082 - Другие игры ПК
+    // 933946149147136041 - Другие игры ПК
     // 933928627450568725 - Другие игры XBOX
     // 933928456566210620 - Другие игры PS
     if (interaction.customId === "00000000000000001") {
       if (
-        interaction_member.roles.cache.has("763080675548332082") ||
+        interaction_member.roles.cache.has("933946149147136041") ||
         interaction_member.roles.cache.has("933928627450568725") ||
         interaction_member.roles.cache.has("933928456566210620")
       ) {
-        if (interaction_member.roles.cache.has("763080675548332082"))
-          interaction_member.roles.remove("763080675548332082");
+        if (interaction_member.roles.cache.has("933946149147136041"))
+          interaction_member.roles.remove("933946149147136041");
 
         if (interaction_member.roles.cache.has("933928627450568725"))
           interaction_member.roles.remove("933928627450568725");
@@ -127,7 +127,7 @@ class Event {
           interaction_member.roles.cache.has("598164183586177064")
         ) {
           if (interaction_member.roles.cache.has("626800044884099082"))
-            interaction_member.roles.add("763080675548332082");
+            interaction_member.roles.add("933946149147136041");
 
           if (interaction_member.roles.cache.has("598163957081178126"))
             interaction_member.roles.add("933928627450568725");
