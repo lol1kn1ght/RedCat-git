@@ -20,7 +20,7 @@ class Command {
         true
       )
       .addField(`Пинг:`, f.discharge(bot.ws.ping), true)
-      .addField(`Количетсво юзеров:`, f.discharge(bot.users.cache.size))
+      .addField(`Количество юзеров:`, f.discharge(bot.users.cache.size))
       .setColor(f.config.defColor);
     message.channel.send({ embeds: [embed] });
   }
