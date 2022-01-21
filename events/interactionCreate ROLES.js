@@ -12,6 +12,16 @@ class Event {
 
     let interaction_member = interaction.member;
 
+    if (interaction.customId === "798422475905040445") {
+      if (!interaction_member.roles.cache.has("598164183586177064") || interaction_member.roles.cache.has("808733824774832158")) {
+        interaction.reply({
+          content: `Верификация доступна только для игроков с PS, не получавших отказ ранее`,
+          ephemeral: true
+        });
+        return
+      }
+    }
+
     if (interaction_member.roles.cache.has(role.id)) {
       interaction.reply({
         content: `Снял вам роль ${role}`,
