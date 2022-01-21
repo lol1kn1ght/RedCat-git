@@ -36,6 +36,14 @@ class Command {
 
     club.money = (club.money || 0) + amount;
 
+    f.clubEconomy_logs({
+      club_for: club,
+      member_by: message.member,
+      reason: `CLUB-DEP`,
+      type: "+",
+      amount: amount
+    });
+
     clubs_db.updateOne(
       {
         owner: club.owner

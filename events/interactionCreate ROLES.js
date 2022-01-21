@@ -22,12 +22,14 @@ class Event {
       return;
     }
 
+    let role_has = role_id => interaction_member.roles.cache.has(role_id);
+
     // Выдача доступа на верификацию
     if (interaction.customId === "798422475905040445") {
       if (
-        !interaction_member.roles.cache.has("598164183586177064") ||
-        interaction_member.roles.cache.has("808733824774832158") ||
-        interaction_member.roles.cache.has("798391622407946250")
+        !role_has("598164183586177064") ||
+        role_has("808733824774832158") ||
+        role_has("798391622407946250")
       ) {
         interaction.reply({
           content: `Верификация доступна только для невирифицированных игроков с PS, не получавших отказ ранее`,

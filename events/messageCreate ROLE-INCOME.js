@@ -60,11 +60,17 @@ class Event {
 
     let author_profile = await Profile(db, message.author.id);
 
+    let income_roles_ids = income_roles.map(role_data => role_data.role);
+
+    let roles = message.member.roles.cache
+      .filter(role => income_roles_ids.includes(role.id))
+      .map(role => role);
+
     author_profile.addMoney(income_amount);
     f.economy_logs({
       member_for: message.member,
       member_by: message.guild.me,
-      reason: `ROLE-COLLECT`,
+      reason: `ROLE-COLLECT for ${roles.join(", ")}`,
       type: "+",
       amount: income_amount
     });
@@ -76,6 +82,8 @@ class Event {
   }
 
   async club_payday(bot, mongo, message) {
+    if (message.channel.name != "22") return;
+
     let amount = this.server_settings?.club_payday || 100;
     let db = mongo.db(message.guild.id);
 
@@ -93,14 +101,13 @@ class Event {
       let user_data = await users_db.find({login: message.author.id}).toArray();
       author_income = user_data[0] || {};
 
-      author_income = user_data[0] || {};
+      f.club_day_income[message.author.id] = author_income;
+    }
 
-      if (!club) {
-        author_income.no_club = date.getTime();
-        f.club_day_income[message.author.id] = author_income;
+    if (!club) {
+      author_income.no_club = date.getTime();
 
-        return;
-      }
+      return;
     }
 
     if (author_income.last_club_collect) {
@@ -126,6 +133,14 @@ class Event {
       }
     );
     author_profile.updateData({last_club_collect: date.getTime()});
+
+    f.clubEconomy_logs({
+      club_for: club,
+      member_by: message.member,
+      reason: `CLUB-COLLECT`,
+      type: "+",
+      amount: amount
+    });
 
     author_income.last_club_collect = date.getTime();
     f.club_day_income[message.author.id] = author_income;

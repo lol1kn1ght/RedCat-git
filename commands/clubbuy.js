@@ -51,6 +51,14 @@ class Command {
       }
     );
 
+    f.clubEconomy_logs({
+      club_for: club,
+      member_by: message.member,
+      reason: `CLUB-BUY ${item.name}`,
+      type: "-",
+      amount: item.cost
+    });
+
     f.msg(message, `Вы успешно приобрели **${item.name}** для своего клуба`);
   }
 

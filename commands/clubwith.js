@@ -37,6 +37,22 @@ class Command {
 
     club.money = (club.money || 0) - amount;
 
+    f.clubEconomy_logs({
+      club_for: club,
+      member_by: message.member,
+      reason: `CLUB-WITHDRAW`,
+      type: "-",
+      amount: amount
+    });
+
+    f.economy_logs({
+      member_for: message.member,
+      member_by: message.guild.me,
+      reason: "clubwithdraw command: witdraw from club",
+      type: "+",
+      amount
+    });
+
     clubs_db.updateOne(
       {
         owner: club.owner

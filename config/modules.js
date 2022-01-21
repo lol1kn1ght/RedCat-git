@@ -10,6 +10,9 @@ var f = {
   push_item: require("../functions/itemPush"),
   splice_item: require("../functions/spliceItem"),
   economy_logs: require("../functions/economyLogs"),
+  club_push_item: require("../functions/clubsinvPush"),
+  club_inv_splice: require("../functions/clubsinvSplice"),
+  clubEconomy_logs: require("../functions/clubEconomyLogs"),
   day_income: {},
   msg: async function(msg, text, options) {
     var Discord = require("discord.js");

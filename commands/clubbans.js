@@ -14,7 +14,8 @@ class Command {
 
     let club = clubs_data.filter(
       club =>
-        club.owner === message.author.id || club.admins?.includes(member.id)
+        club.owner === message.author.id ||
+        club.admins?.includes(message.member.id)
     )[0];
     if (!club) return f.msgFalse(message, "Вы не управляете никаким клубом.");
 
@@ -27,7 +28,7 @@ class Command {
       aliases: "clubbans",
       description: "просмотреть список забаненных участников в вашем клубе",
       enabled: true,
-      type: "Клубы",
+      type: "WIP",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: []
