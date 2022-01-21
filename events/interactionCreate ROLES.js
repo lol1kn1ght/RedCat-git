@@ -10,6 +10,18 @@ class Event {
 
     let interaction_member = interaction.member;
 
+    // Разворачиваем счастливых обладателей ролей "Muted" и "Подозреваемый"
+    if (
+      interaction_member.roles.cache.has("649306215272284200") ||
+      interaction_member.roles.cache.has("689152734469161015")
+    ) {
+      interaction.reply({
+        content: `Недоступно отбывающим наказание и подозреваемым!`,
+        ephemeral: true
+      });
+      return;
+    }
+
     // Выдача доступа на верификацию
     if (interaction.customId === "798422475905040445") {
       if (
