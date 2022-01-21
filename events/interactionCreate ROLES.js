@@ -26,10 +26,11 @@ class Event {
     if (interaction.customId === "798422475905040445") {
       if (
         !interaction_member.roles.cache.has("598164183586177064") ||
-        interaction_member.roles.cache.has("808733824774832158")
+        interaction_member.roles.cache.has("808733824774832158") ||
+        interaction_member.roles.cache.has("798391622407946250")
       ) {
         interaction.reply({
-          content: `Верификация доступна только для игроков с PS, не получавших отказ ранее`,
+          content: `Верификация доступна только для невирифицированных игроков с PS, не получавших отказ ранее`,
           ephemeral: true
         });
         return;
