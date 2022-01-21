@@ -13,12 +13,29 @@ class Event {
     let interaction_member = interaction.member;
 
     if (interaction.customId === "798422475905040445") {
-      if (!interaction_member.roles.cache.has("598164183586177064") || interaction_member.roles.cache.has("808733824774832158")) {
+      if (
+        !interaction_member.roles.cache.has("598164183586177064") ||
+        interaction_member.roles.cache.has("808733824774832158")
+      ) {
         interaction.reply({
           content: `Верификация доступна только для игроков с PS, не получавших отказ ранее`,
           ephemeral: true
         });
-        return
+        return;
+      }
+    }
+
+    if (
+      interaction.customId === "626800044884099082" ||
+      interaction.customId === "598163957081178126" ||
+      interaction.customId === "598164183586177064"
+    ) {
+      if (interaction_member.roles.cache.has("689152734469161015")) {
+        interaction.reply({
+          content: `Выбор платформы недоступен для подозреваемых в нечестной игре!`,
+          ephemeral: true
+        });
+        return;
       }
     }
 

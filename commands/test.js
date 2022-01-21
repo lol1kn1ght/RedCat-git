@@ -14,28 +14,28 @@ class Command {
     const rolesrow2 = new MessageActionRow().addComponents(
       new MessageButton()
         .setStyle("SECONDARY")
-        .setEmoji("<a:r_wakeup:876654370081628161>")
-        .setCustomId("763080675548332082"),
+        .setEmoji("<:pl_PC:631939178044719104>")
+        .setCustomId("626800044884099082"),
 
       new MessageButton()
         .setStyle("SECONDARY")
-        .setEmoji("👀")
-        .setCustomId("724513678149550161"),
+        .setEmoji("<:pl_xbox:627947917432455178>")
+        .setCustomId("598163957081178126"),
 
       new MessageButton()
         .setStyle("SECONDARY")
-        .setEmoji("🐺")
-        .setCustomId("746029718217818132"),
+        .setEmoji("<:pl_ps:627947891192758322>")
+        .setCustomId("598164183586177064"),
 
-      new MessageButton()
-        .setStyle("SECONDARY")
-        .setEmoji("<:RDR_rep_good:821121079279616021>")
-        .setCustomId("798422475905040445")
+      // new MessageButton()
+      //   .setStyle("SECONDARY")
+      //   .setEmoji("<:RDR_rep_good:821121079279616021>")
+      //   .setCustomId("798422475905040445")
     );
 
     let msg = await bot.channels.cache
       .get("652521261058228236")
-      .messages.fetch("817426126350975017");
+      .messages.fetch("817434947119611925");
 
     msg.edit({
       components: [rolesrow2]
