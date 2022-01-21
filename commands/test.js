@@ -14,23 +14,22 @@ class Command {
     const rolesrow2 = new MessageActionRow().addComponents(
       new MessageButton()
         .setStyle("SECONDARY")
+        .setLabel("ПК")
         .setEmoji("<:pl_PC:631939178044719104>")
         .setCustomId("626800044884099082"),
 
       new MessageButton()
         .setStyle("SUCCESS")
+        .setLabel("XBOX")
         .setEmoji("<:pl_xbox:627947917432455178>")
         .setCustomId("598163957081178126"),
 
       new MessageButton()
         .setStyle("PRIMARY")
+        .setLabel("PlayStation")
         .setEmoji("<:pl_ps:627947891192758322>")
         .setCustomId("598164183586177064"),
 
-      // new MessageButton()
-      //   .setStyle("SECONDARY")
-      //   .setEmoji("<:RDR_rep_good:821121079279616021>")
-      //   .setCustomId("798422475905040445")
     );
 
     let msg = await bot.channels.cache
