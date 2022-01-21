@@ -18,12 +18,12 @@ class Command {
         .setCustomId("626800044884099082"),
 
       new MessageButton()
-        .setStyle("SECONDARY")
+        .setStyle("SUCCESS")
         .setEmoji("<:pl_xbox:627947917432455178>")
         .setCustomId("598163957081178126"),
 
       new MessageButton()
-        .setStyle("SECONDARY")
+        .setStyle("PRIMARY")
         .setEmoji("<:pl_ps:627947891192758322>")
         .setCustomId("598164183586177064"),
 
