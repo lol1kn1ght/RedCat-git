@@ -6,11 +6,6 @@ class Command {
 
   async execute(bot, message, args, mongo) {
     var db = mongo.db(message.guild.id);
-    try {
-      message.delete({
-        timeout: 30000
-      });
-    } catch (e) {}
 
     if (!args[0])
       return f.msgFalse(message, `Вы не указали что хотите сделать.`);

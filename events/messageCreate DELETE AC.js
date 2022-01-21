@@ -2,12 +2,11 @@ class Event {
   constructor() {}
 
   async execute(bot, mongo, message) {
-    if (!message.author.bot || message.channel.id !== "652538093790035968")
-      return;
+    if (message.channel.id !== "652538093790035968") return;
 
-    message.delete({
-      timeout: 15000,
-    });
+    setTimeout(() => {
+      message.delete().catch(err => {});
+    }, 15000);
   }
 }
 module.exports = (...args) => {
