@@ -64,9 +64,9 @@ class Command {
       aliases: "shop",
       description: "посмотреть каталог товаров в магазине",
       usage: "shop",
-      enabled: false,
+      enabled: true,
       type: "Магазин",
-      permissions: [],
+      permissions: [`ADMINISTRATOR`],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: [],
     };
