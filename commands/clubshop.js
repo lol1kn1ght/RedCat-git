@@ -87,9 +87,9 @@ class Command {
       aliases: "club-shop clubshop",
       description: "посмотреть каталог товаров в магазине клубов",
       usage: "clubshop",
-      enabled: false,
+      enabled: true,
       type: "Магазин Клубов",
-      permissions: [],
+      permissions: [`ADMINISTRATOR`],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: [],
     };
