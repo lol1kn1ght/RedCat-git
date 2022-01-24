@@ -46,8 +46,6 @@ class Command {
       count++;
     }
 
-    console.log(pages);
-
     let num = 1;
     let embeds = [];
 

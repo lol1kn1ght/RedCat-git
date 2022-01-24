@@ -82,8 +82,6 @@ class Event {
   }
 
   async club_payday(bot, mongo, message) {
-    if (message.channel.name != "22") return;
-
     let amount = this.server_settings?.club_payday || 100;
     let db = mongo.db(message.guild.id);
 
