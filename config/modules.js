@@ -14,6 +14,7 @@ var f = {
   club_inv_splice: require("../functions/clubsinvSplice"),
   clubEconomy_logs: require("../functions/clubEconomyLogs"),
   day_income: {},
+  unb_token: require("./constants.json").unb_token,
   msg: async function(msg, text, options) {
     var Discord = require("discord.js");
     var embed = new Discord.MessageEmbed()

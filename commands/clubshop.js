@@ -16,25 +16,28 @@ class Command {
       case "цена":
       case "стоимость":
         sort_value = {
-          cost: -1,
+          cost: -1
         };
         break;
       case "id":
       case "айди":
         sort_value = {
-          id: -1,
+          id: -1
         };
         break;
 
       default:
         let opts = sort_opts.split(`_`);
         sort_value = {
-          [opts[0]]: Number(opts[1]),
+          [opts[0]]: Number(opts[1])
         };
     }
 
     let items_db = db.collection("clubs_shop");
-    let items_data = await items_db.find().sort(sort_value).toArray();
+    let items_data = await items_db
+      .find()
+      .sort(sort_value)
+      .toArray();
     if (!items_data[0]) return f.msgFalse(message, "Клубный магазин пуст.");
     let pages = [];
     let curr_page = 0;
@@ -47,7 +50,7 @@ class Command {
         name: `${item_pos++}. ${item.name} - **${f.discharge(item.cost)}**${
           f.currency
         }`,
-        value: item.description || "Пусто.",
+        value: item.description || "Пусто."
       };
 
       if (pages[curr_page]) pages[curr_page].push(item_field);
@@ -65,10 +68,10 @@ class Command {
       let page_embed = new Discord.MessageEmbed({
         title: "Клубный магазин:",
         thumbnail: {
-          url: message.guild.iconURL({ dynamic: true }),
+          url: message.guild.iconURL({dynamic: true})
         },
         fields: page,
-        color: f.config.defColor,
+        color: f.config.defColor
       });
 
       embeds_pages.push(page_embed);
@@ -78,7 +81,7 @@ class Command {
       message,
       embeds_pages,
       180000,
-      (reaction, user) => user.id === message.author.id
+      btn => btn.user.id === message.author.id
     );
   }
 
@@ -91,7 +94,7 @@ class Command {
       type: "Магазин Клубов",
       permissions: [`ADMINISTRATOR`],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
@@ -108,15 +111,15 @@ class Command {
           choices: [
             {
               name: "по стоимости от большего к меньшему",
-              value: "cost_-1",
+              value: "cost_-1"
             },
             {
               name: "по стоимости от меньшего к большему",
-              value: "cost_1",
-            },
-          ],
-        },
-      ],
+              value: "cost_1"
+            }
+          ]
+        }
+      ]
     };
   }
 }

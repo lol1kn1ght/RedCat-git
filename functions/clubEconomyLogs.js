@@ -1,7 +1,6 @@
 const {MessageEmbed} = require("discord.js");
 
 module.exports = function({amount, club_for, member_by, type, reason}) {
-  console.log(amount, club_for, member_by, type, reason);
   if (!amount || !club_for || !member_by || !type || !reason)
     throw new Error("Недостаточно аргуметнов.");
 

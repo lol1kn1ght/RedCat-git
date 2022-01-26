@@ -17,6 +17,8 @@
     "mongodb": "^3.6.6",
     "node-fetch": "^2.6.1",
     "parse-duration": "^1.0.0",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "socket.io-client": "^4.4.1",
+    "unb-api": "^1.2.3"
   }
 }

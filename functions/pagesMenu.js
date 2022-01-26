@@ -4,8 +4,30 @@ module.exports = async function(message, pages, time, filter, start_page) {
   if (!filter) filter = () => true;
   if (!time) time = 60000;
 
+  let prev_page = new Discord.MessageButton({
+    type: "BUTTON",
+    label: "Назад",
+    customId: "prev_page",
+    style: "PRIMARY",
+    disabled: true
+  });
+
+  let next_page = new Discord.MessageButton({
+    type: "BUTTON",
+    label: "Вперед",
+    customId: "next_page",
+    style: "PRIMARY",
+    disabled: false
+  });
+
+  let buttons_row = new Discord.MessageActionRow().addComponents(
+    prev_page,
+    next_page
+  );
+
   let menu_msg = await message.channel.send({
-    embeds: [pages[start_page - 1] || pages[0]]
+    embeds: [pages[start_page - 1] || pages[0]],
+    components: pages.length > 1 ? [buttons_row] : undefined
   });
   if (!pages[1]) return;
 
@@ -13,34 +35,51 @@ module.exports = async function(message, pages, time, filter, start_page) {
   let page_emojis = f.config.menuEmojis; // Эмоджи для листания страниц
   let menu_page = user_page - 1; // Текущая страница при листании меню
 
-  let pages_collector = menu_msg.createReactionCollector({
-    filter: (reaction, user) =>
-      filter(reaction, user) && page_emojis.includes(reaction.emoji.name),
+  let pages_collector = menu_msg.createMessageComponentCollector({
+    filter: interaction =>
+      filter(interaction) &&
+      ["next_page", "prev_page"].includes(interaction.customId),
     time: time
   }); // Создание коллектора реакций для листания страниц
 
-  let set_reactions = async () => {
-    for (let menu_emoji of page_emojis) await menu_msg.react(menu_emoji);
-  };
-  if (pages.length > 1) set_reactions(); // Установить реакции листания страниц на сообщение с топом
+  pages_collector.on("collect", interaction => {
+    if (!interaction.isButton()) return;
 
-  pages_collector.on("collect", (reaction, user) => {
-    reaction.users.remove(user.id);
+    let button = interaction;
 
-    switch (reaction.emoji.name) {
-      case page_emojis[0]:
+    switch (button.customId) {
+      case "prev_page":
         // Листнуть страницу назад
         if (menu_page - 1 < 0) return;
-        menu_msg.edit({embeds: [pages[--menu_page]]});
+        --menu_page;
+
+        if (menu_page - 1 < 0) prev_page.disabled = true;
+
+        let new_row_1 = new Discord.MessageActionRow().addComponents(
+          prev_page,
+          next_page
+        );
+        button.update({embeds: [pages[menu_page]], components: [new_row_1]});
         break;
 
-      case page_emojis[1]:
+      case "next_page":
         // Листнуть страницу вперед
         if (menu_page + 1 > pages.length - 1) return;
-        menu_msg.edit({embeds: [pages[++menu_page]]});
+        ++menu_page;
+
+        if (menu_page - 1 >= 0) prev_page.disabled = false;
+
+        if (menu_page + 1 > pages.length - 1) next_page.disabled = true;
+
+        let new_row_2 = new Discord.MessageActionRow().addComponents(
+          prev_page,
+          next_page
+        );
+
+        button.update({embeds: [pages[menu_page]], components: [new_row_2]});
         break;
     }
   });
 
-  pages_collector.on("end", () => menu_msg.reactions.removeAll()); // Удаление всех реакций с сообщения при закрытии коллектора реакций
+  pages_collector.on("end", () => menu_msg.edit({components: []})); // Удаление всех реакций с сообщения при закрытии коллектора реакций
 };
