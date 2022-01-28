@@ -77,7 +77,7 @@ class Command {
       aliases: "clubwith",
       description: "Снять валюту со счета своего клуба.",
       enabled: true,
-      type: "WIP",
+      type: "Клубы",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: []
