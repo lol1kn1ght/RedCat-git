@@ -16,20 +16,20 @@ class Command {
       case "цена":
       case "стоимость":
         sort_value = {
-          cost: -1,
+          cost: -1
         };
         break;
       case "id":
       case "айди":
         sort_value = {
-          id: -1,
+          id: -1
         };
         break;
 
       default:
         let opts = sort_opts.split(`_`);
         sort_value = {
-          [opts[0]]: Number(opts[1]),
+          [opts[0]]: Number(opts[1])
         };
     }
 
@@ -47,7 +47,7 @@ class Command {
         name: `${item_pos++}. ${item.name} - **${f.discharge(item.cost)}**${
           f.currency
         }`,
-        value: item.description || "Пусто.",
+        value: item.description || "Пусто."
       };
 
       if (pages[curr_page]) pages[curr_page].push(item_field);
@@ -65,10 +65,10 @@ class Command {
       let page_embed = new Discord.MessageEmbed({
         title: "Клубный магазин:",
         thumbnail: {
-          url: message.guild.iconURL({ dynamic: true }),
+          url: message.guild.iconURL({dynamic: true})
         },
         fields: page,
-        color: f.config.defColor,
+        color: f.config.defColor
       });
 
       embeds_pages.push(page_embed);
@@ -78,7 +78,7 @@ class Command {
       message,
       embeds_pages,
       180000,
-      (reaction, user) => user.id === message.author.id
+      btn => btn.user.id === message.author.id
     );
   }
 
@@ -91,7 +91,7 @@ class Command {
       type: "Магазин Клубов",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: []
     };
   }
 
@@ -108,15 +108,15 @@ class Command {
           choices: [
             {
               name: "по стоимости от большего к меньшему",
-              value: "cost_-1",
+              value: "cost_-1"
             },
             {
               name: "по стоимости от меньшего к большему",
-              value: "cost_1",
-            },
-          ],
-        },
-      ],
+              value: "cost_1"
+            }
+          ]
+        }
+      ]
     };
   }
 }

@@ -92,7 +92,7 @@ class Command {
       message,
       embeds_pages,
       180000,
-      (r, u) => u.id === message.author.id,
+      btn => btn.user.id === message.author.id,
       user_page
     );
   }

@@ -108,7 +108,7 @@ class Command {
       message,
       embeds,
       18000,
-      (reaction, user) => user.id === message.author.id
+      btn => btn.user.id === message.author.id
     );
   }
 

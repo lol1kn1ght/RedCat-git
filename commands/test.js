@@ -1,4 +1,6 @@
 const {MessageActionRow, MessageButton} = require("discord.js");
+const UnbelievaClient = require("unb-api").Client;
+const Unbelieva = new UnbelievaClient(f.unb_token);
 
 class Command {
   constructor() {
@@ -10,36 +12,47 @@ class Command {
     let db = mongo.db(message.guild.id);
     let users_db = db.collection("users");
 
-    // const rolesrow2 = new MessageActionRow().addComponents(
-    //   new MessageButton()
-    //     .setStyle("SECONDARY")
-    //     .setLabel("ПК")
-    //     .setEmoji("<:pl_PC:631939178044719104>")
-    //     .setCustomId("626800044884099082"),
+    // let all_users = await users_db.find().toArray();
     //
-    //   new MessageButton()
-    //     .setStyle("SUCCESS")
-    //     .setLabel("XBOX")
-    //     .setEmoji("<:pl_xbox:627947917432455178>")
-    //     .setCustomId("598163957081178126"),
-    //
-    //   new MessageButton()
-    //     .setStyle("PRIMARY")
-    //     .setLabel("PlayStation")
-    //     .setEmoji("<:pl_ps:627947891192758322>")
-    //     .setCustomId("598164183586177064"),
-    //
+    // let duplicates_users = all_users.filter(
+    //   user => all_users.filter(u => u.login === user.login).length != 1
     // );
     //
-    // let msg = await bot.channels.cache
-    //   .get("652521261058228236")
-    //   .messages.fetch("817434947119611925");
+    // console.log(duplicates_users.map(user => user.login));
     //
-    // msg.edit({
-    //   components: [rolesrow2]
+    // let ids = [...new Set(duplicates_users.map(user => user.login))];
+    //
+    // console.log(ids);
+    // let lb = await Unbelieva.getGuildLeaderboard(message.guild.id, {
+    //   sort: "cash"
     // });
-
-    f.club_day_income = {};
+    //
+    // let members = await message.guild.members.fetch({
+    //   id: lb.map(user => user.user_id)
+    // });
+    //
+    // let done = [];
+    //
+    // let lb_filtred = lb.filter(user => members.has(user.user_id));
+    //
+    // let result_message = await message.channel.send(
+    //   `Обработано \`${done.length}\` человек из \`${lb_filtred.length}\``
+    // );
+    //
+    // setInterval(() => {
+    //   result_message.edit(
+    //     `Обработано \`${done.length}\` человек из \`${lb_filtred.length}\``
+    //   );
+    // }, 2000);
+    //
+    // for (let user of lb_filtred) {
+    //   console.log(`${user.user_id}: ${user.total}`);
+    //   await users_db.insertOne({
+    //     login: user.user_id,
+    //     coins: user.total
+    //   });
+    //   done.push(user);
+    // }
   }
 
   #getOptions() {
