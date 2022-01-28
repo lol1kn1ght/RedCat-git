@@ -55,7 +55,7 @@ class Command {
       message,
       embeds_pages,
       180000,
-      (reaction, user) => user.id === message.author.id
+      (interaction, user) => interaction.user.id === message.author.id
     );
   }
 
