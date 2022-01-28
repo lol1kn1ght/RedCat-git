@@ -60,7 +60,7 @@ class Command {
       usage: `buy [название предмета]`,
       enabled: true,
       type: "Магазин",
-      permissions: [`ADMINISTRATOR`],
+      permissions: [],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: []
     };

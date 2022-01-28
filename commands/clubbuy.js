@@ -68,7 +68,7 @@ class Command {
       description: "Купить предмет для клуба",
       enabled: true,
       type: "Магазин Клубов",
-      permissions: [`ADMINISTRATOR`],
+      permissions: [],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: []
     };

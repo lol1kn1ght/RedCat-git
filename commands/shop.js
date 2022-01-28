@@ -66,7 +66,7 @@ class Command {
       usage: "shop",
       enabled: true,
       type: "Магазин",
-      permissions: [`ADMINISTRATOR`],
+      permissions: [],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: [],
     };

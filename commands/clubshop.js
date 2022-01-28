@@ -34,7 +34,7 @@ class Command {
     }
 
     let items_db = db.collection("clubs_shop");
-    let items_data = await items_db.find().sort(sort_value).toArray();
+    let items_data = await items_db.find().sort({ cost: 1 }).toArray();;
     if (!items_data[0]) return f.msgFalse(message, "Клубный магазин пуст.");
     let pages = [];
     let curr_page = 0;
@@ -89,7 +89,7 @@ class Command {
       usage: "clubshop",
       enabled: true,
       type: "Магазин Клубов",
-      permissions: [`ADMINISTRATOR`],
+      permissions: [],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: [],
     };
