@@ -16,7 +16,7 @@ module.exports = function({amount, member_for, member_by, type, reason, final_co
         member_for.id
       })\n\`Сумма\`: ${type + "" + f.discharge(amount)}${
         f.currency
-      })\n\`Баланс\`: ${f.discharge(final_coins)}${
+      }\n\`Баланс\`: ${f.discharge(final_coins)}${
         f.currency
       }\n\`Причина\`: ${reason}\n\`Кем\`: \`${member_by.user.tag}\` (ID: ${
         member_by.id
