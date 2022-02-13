@@ -34,7 +34,7 @@ class Command {
         )}${f.currency}**`
       );
 
-    let money = author.removeMoney(item.cost);
+    let money = await author.removeMoney(item.cost);
 
     f.economy_logs({
       member_for: message.member,

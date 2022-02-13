@@ -39,8 +39,8 @@ class Command {
       );
 
     var user = await Profile(db, member.id);
-    let removed_money = author.removeMoney(amount);
-    let added_money = user.addMoney(amount);
+    let removed_money = await author.removeMoney(amount);
+    let added_money = await user.addMoney(amount);
 
     f.economy_logs({
       member_for: message.member,

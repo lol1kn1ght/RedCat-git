@@ -33,7 +33,7 @@ class Command {
         "На счету клуба недостаточно средств для этой операции."
       );
 
-    let money = member_profile.addMoney(amount);
+    let money = await member_profile.addMoney(amount);
 
     club.money = (club.money || 0) - amount;
 

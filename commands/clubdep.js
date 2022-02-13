@@ -32,7 +32,7 @@ class Command {
     if (member_profile.coins < amount)
       return f.msgFalse(message, "У вас недостаточно средств для депозита.");
 
-    let money = member_profile.removeMoney(amount);
+    let money = await member_profile.removeMoney(amount);
 
     club.money = (club.money || 0) + amount;
 
