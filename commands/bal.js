@@ -18,7 +18,7 @@ class Command {
 
     f.msg(
       message,
-      `Баланс **${member.user.tag}** - **${f.discharge(balance)}${
+      `Баланс **${member.user.tag}**: **${f.discharge(balance)}${
         f.currency
       }**`,
       { color: f.config.defColor }

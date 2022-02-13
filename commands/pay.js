@@ -33,7 +33,7 @@ class Command {
     if (amount > balanceAuthor)
       return f.msgFalse(
         message,
-        `У вас недостаточно средств для этой операции. Ваш баланс - **${f.discharge(
+        `У вас недостаточно средств для этой операции. Ваш баланс: **${f.discharge(
           balanceAuthor
         )}${f.currency}**`
       );
@@ -41,6 +41,9 @@ class Command {
     var user = await Profile(db, member.id);
     let removed_money = await author.removeMoney(amount);
     let added_money = await user.addMoney(amount);
+
+    console.log(removed_money)
+    console.log(added_money)
 
     f.economy_logs({
       member_for: message.member,
