@@ -66,13 +66,14 @@ class Event {
       .filter(role => income_roles_ids.includes(role.id))
       .map(role => role);
 
-    author_profile.addMoney(income_amount);
+    let money = author_profile.addMoney(income_amount);
     f.economy_logs({
       member_for: message.member,
       member_by: message.guild.me,
       reason: `ROLE-COLLECT for ${roles.join(", ")}`,
       type: "+",
-      amount: income_amount
+      amount: income_amount,
+      final_coins: money.balance.after,
     });
 
     author_profile.updateData({last_collect: date.getTime()});

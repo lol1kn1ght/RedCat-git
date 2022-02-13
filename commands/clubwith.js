@@ -33,7 +33,7 @@ class Command {
         "На счету клуба недостаточно средств для этой операции."
       );
 
-    member_profile.addMoney(amount);
+    let money = member_profile.addMoney(amount);
 
     club.money = (club.money || 0) - amount;
 
@@ -50,7 +50,8 @@ class Command {
       member_by: message.guild.me,
       reason: "clubwithdraw command: witdraw from club",
       type: "+",
-      amount
+      amount,
+      final_coins: money.balance.after
     });
 
     clubs_db.updateOne(

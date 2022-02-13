@@ -39,15 +39,16 @@ class Command {
       );
 
     var user = await Profile(db, member.id);
-    author.removeMoney(amount);
-    user.addMoney(amount);
+    let removed_money = author.removeMoney(amount);
+    let added_money = user.addMoney(amount);
 
     f.economy_logs({
       member_for: message.member,
       member_by: member,
       reason: `Give: Given money to ${member.user.tag}`,
       type: "-",
-      amount: amount
+      amount: amount,
+      final_coins: removed_money.balance.after
     });
 
     f.economy_logs({
@@ -55,7 +56,8 @@ class Command {
       member_by: message.member,
       reason: `Give: Given money to ${member.user.tag}`,
       type: "+",
-      amount: amount
+      amount: amount,
+      final_coins: added_money.balance.after
     });
 
     f.msg(

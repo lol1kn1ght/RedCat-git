@@ -34,14 +34,15 @@ class Command {
         )}${f.currency}**`
       );
 
-    author.removeMoney(item.cost);
+    let money = author.removeMoney(item.cost);
 
     f.economy_logs({
       member_for: message.member,
       member_by: message.guild.me,
       reason: `Buy: Bought "${item.name}"`,
       type: "-",
-      amount: item.cost
+      amount: item.cost,
+      final_coins: money.balance.after
     });
 
     f.push_item(db, message.author.id, item.id, 1);

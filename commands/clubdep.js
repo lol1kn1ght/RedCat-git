@@ -32,7 +32,7 @@ class Command {
     if (member_profile.coins < amount)
       return f.msgFalse(message, "У вас недостаточно средств для депозита.");
 
-    member_profile.removeMoney(amount);
+    let money = member_profile.removeMoney(amount);
 
     club.money = (club.money || 0) + amount;
 
@@ -60,7 +60,8 @@ class Command {
       member_by: message.guild.me,
       reason: "clubdep command: deposit to club",
       type: "-",
-      amount
+      amount,
+      final_coins: money.balance.after
     });
 
     f.msg(

@@ -28,13 +28,14 @@ class Command {
         message,
         "У выбранного вами участника денег меньше, чем вы хотите удалить."
       );
-    await target.removeMoney(amount);
+    let money = await target.removeMoney(amount);
     f.economy_logs({
       member_for: member,
       member_by: message.member,
-      reason: `remove-moeny: Given money to ${member.user.tag}`,
+      reason: `remove-money: Given money to ${member.user.tag}`,
       type: "-",
-      amount
+      amount,
+      final_coins: money.balance.after,
     });
 
     f.msg(

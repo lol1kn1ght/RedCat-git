@@ -20,14 +20,16 @@ class Command {
       return f.msgFalse(message, "Вы неправильно указали сумму для передачи.");
 
     var target = await Profile(db, member.id);
-    await target.addMoney(amount);
+    let money = await target.addMoney(amount);
 
-    f.economy_logs({
+    f.economy_logs;
+    ({
       member_for: member,
       member_by: message.member,
       reason: "Add-money command",
       type: "+",
-      amount
+      amount,
+      final_coins: money.balance.after
     });
     f.msg(
       message,
