@@ -1,8 +1,8 @@
 const {MessageEmbed} = require("discord.js");
 
 module.exports = function({amount, member_for, member_by, type, reason, final_coins}) {
-  if (!amount || !member_for || !member_by || !type || !reason || !final_coins)
-    throw new Error("Недостаточно аргуметнов.");
+  if (!amount || !member_for || !member_by || !type || !reason || isNaN(final_coins))
+    throw new Error("Недостаточно аргументов.");
 
   if (isNaN(Number(amount))) throw new Error("Сумма должна быть числом.");
 
