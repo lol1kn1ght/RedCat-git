@@ -7,7 +7,13 @@ class Command {
   async execute(bot, message, args, mongo) {
     let db = mongo.db(message.guild.id);
 
-    let amount = Number(args[0]);
+    let member_profile = await Profile(db, message.author.id);
+
+    if (args[0] === "all") {
+      var amount = member_profile.coins;
+    } else {
+      var amount = Number(args[0]);
+    }
 
     if (isNaN(amount))
       return f.msgFalse(message, "Сумма для депозита должна быть числом.");
@@ -26,8 +32,6 @@ class Command {
     )[0];
 
     if (!club) return f.msgFalse(message, "Вы не находитесь ни в каком клубе.");
-
-    let member_profile = await Profile(db, message.author.id);
 
     if (member_profile.coins < amount)
       return f.msgFalse(message, "У вас недостаточно средств для депозита.");

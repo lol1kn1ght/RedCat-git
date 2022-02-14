@@ -7,6 +7,9 @@ class Command {
   async execute(bot, message, args, mongo) {
     var db = mongo.db(message.guild.id);
 
+    var author = await Profile(db, message.author.id);
+    var balanceAuthor = author.getBalance();
+
     var member =
       message.mentions.members.first() ||
       message.guild.members.cache.get(args[0]);
@@ -21,15 +24,17 @@ class Command {
         "Вы неправильно указали участника для передачи денег."
       );
 
-    var amount = Number(args[1]);
-    if (isNaN(amount) || amount < 0)
-      return f.msgFalse(
-        message,
-        "Вы неправильно указали количество для передачи."
-      );
+    if (args[1] === "all") {
+      var amount = balanceAuthor;
+    } else {
+      var amount = Number(args[1]);
+      if (isNaN(amount) || amount < 0)
+        return f.msgFalse(
+          message,
+          "Вы неправильно указали количество для передачи."
+        );
+    }
 
-    var author = await Profile(db, message.author.id);
-    var balanceAuthor = author.getBalance();
     if (amount > balanceAuthor)
       return f.msgFalse(
         message,
@@ -42,8 +47,8 @@ class Command {
     let removed_money = await author.removeMoney(amount);
     let added_money = await user.addMoney(amount);
 
-    console.log(removed_money)
-    console.log(added_money)
+    console.log(removed_money);
+    console.log(added_money);
 
     f.economy_logs({
       member_for: message.member,
