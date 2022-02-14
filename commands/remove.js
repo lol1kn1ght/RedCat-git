@@ -34,7 +34,7 @@ class Command {
       member_by: message.member,
       reason: `remove-money: Given money to ${member.user.tag}`,
       type: "-",
-      amount,
+      amount: amount,
       final_coins: money.balance.after,
     });
 

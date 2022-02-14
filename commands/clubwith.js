@@ -42,7 +42,8 @@ class Command {
       member_by: message.member,
       reason: `CLUB-WITHDRAW`,
       type: "-",
-      amount: amount
+      amount: amount,
+      final_coins: club.money,
     });
 
     f.economy_logs({
@@ -50,7 +51,7 @@ class Command {
       member_by: message.guild.me,
       reason: "clubwithdraw command: witdraw from club",
       type: "+",
-      amount,
+      amount: amount,
       final_coins: money.balance.after
     });
 

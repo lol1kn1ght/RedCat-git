@@ -56,7 +56,8 @@ class Command {
       member_by: message.member,
       reason: `CLUB-BUY ${item.name}`,
       type: "-",
-      amount: item.cost
+      amount: item.cost,
+      final_coins: club.money - item.cost,
     });
 
     f.msg(message, `Вы успешно приобрели **${item.name}** для своего клуба`);

@@ -28,7 +28,7 @@ class Command {
       member_by: message.member,
       reason: "Add-money command",
       type: "+",
-      amount,
+      amount: amount,
       final_coins: money.balance.after
     });
     f.msg(

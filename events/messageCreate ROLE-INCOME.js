@@ -138,7 +138,8 @@ class Event {
       member_by: message.member,
       reason: `CLUB-COLLECT`,
       type: "+",
-      amount: amount
+      amount: amount,
+      final_coins: (club.money || 0) + amount,
     });
 
     author_income.last_club_collect = date.getTime();

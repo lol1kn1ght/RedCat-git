@@ -45,7 +45,8 @@ class Command {
       member_by: message.member,
       reason: `CLUB-DEP`,
       type: "+",
-      amount: amount
+      amount: amount,
+      final_coins: club.money,
     });
 
     clubs_db.updateOne(
@@ -64,7 +65,7 @@ class Command {
       member_by: message.guild.me,
       reason: "clubdep command: deposit to club",
       type: "-",
-      amount,
+      amount: amount,
       final_coins: money.balance.after
     });
 
