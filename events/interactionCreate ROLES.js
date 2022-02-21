@@ -1,6 +1,7 @@
 class Event {
   constructor() {}
 
+const { MessageActionRow, MessageButton } = require("discord.js")
   async execute(bot, mongo, interaction) {
     if (!interaction.isButton()) return;
 
@@ -108,6 +109,35 @@ class Event {
 
         return interaction_member.roles.add(role.id);
       }
+      
+      let msg = await client.channels.cache
+                    .get("652521261058228236")
+                    .messages.fetch("817434947119611925")
+
+                await interaction.guild.roles.fetch();
+
+                const role_platform = new MessageActionRow().addComponents(
+                    new MessageButton()
+                        .setStyle("SECONDARY")
+                        .setEmoji("<:pl_PC:631939178044719104>")
+                        .setLabel(`ПК (${interaction.guild.roles.cache.get(`626800044884099082`).members.size})`)
+                        .setCustomId("626800044884099082"),
+                  
+                  new MessageButton()
+                        .setStyle("SUCCESS")
+                        .setEmoji("<:pl_xbox:627947917432455178>")
+                        .setLabel(`XBOX (${interaction.guild.roles.cache.get(`598163957081178126`).members.size})`)
+                        .setCustomId("598163957081178126"),
+                  
+                  new MessageButton()
+                        .setStyle("PRIMARY")
+                        .setEmoji("<:pl_ps:627947891192758322>")
+                        .setLabel(`PlayStation (${interaction.guild.roles.cache.get(`598164183586177064`).members.size})`)
+                        .setCustomId("598164183586177064")
+                )
+                
+             await msg.edit({ components: [role_platform] })   
+      
     }
 
     // Обработка кнопки "другие игры"
