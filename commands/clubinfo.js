@@ -1,4 +1,5 @@
 const f = require("../config/modules");
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 class Command {
   constructor() {
