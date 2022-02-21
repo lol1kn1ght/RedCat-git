@@ -167,7 +167,7 @@ class Command {
         const collector = menuMsg.createMessageComponentCollector({
             filter,
             componentType: "BUTTON",
-            time: 1000 * 60 * 5
+            time: 1000 * 60 * 3
         })
 
         collector.on("collect", async (interaction) => {
@@ -193,9 +193,7 @@ class Command {
         })
 
         collector.on(`end`, interaction => {
-            row.components[0].setDisabled(true);
-            row.components[1].setDisabled(true);
-            menuMsg.edit({ components: [row] })
+            menuMsg.edit({ components: [] })
         });
 }
 
