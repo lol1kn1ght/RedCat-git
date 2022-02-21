@@ -168,6 +168,7 @@ class Command {
     collector.on("end", () => {
       menuMsg.reactions.removeAll();
     });
+}
 
   #getOptions() {
     return {
