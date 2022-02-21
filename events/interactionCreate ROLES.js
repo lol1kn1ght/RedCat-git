@@ -109,7 +109,6 @@ class Event {
         });
 
         return interaction_member.roles.add(role.id);
-      }
       
               let msg = await bot.channels.cache
                     .get("652521261058228236")
@@ -138,7 +137,8 @@ class Event {
                 )
 
              await msg.edit({ components: [role_platform] })
-      
+        
+      }
     }
 
     // Обработка кнопки "другие игры"
