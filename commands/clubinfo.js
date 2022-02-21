@@ -140,34 +140,62 @@ class Command {
     );
 
  if (pages.length === 1) return;
-    var pagesEmojis = ["⬅️", "➡️"];
-    var collector = await menuMsg.createReactionCollector({
-      filter: (r, u) =>
-        u.id === message.author.id && pagesEmojis.includes(r.emoji.name),
-      time: 180000,
-    });
-    var setReacts = async () => {
-      await menuMsg.react(pagesEmojis[0]);
-      await menuMsg.react(pagesEmojis[1]);
-    };
-    setReacts();
-    collector.on("collect", (r, u) => {
-      r.users.remove(u.id);
-      switch (r.emoji.name) {
-        case pagesEmojis[0]:
-          if (currentPage - 1 < 0) return;
-          menuMsg.edit({ embeds: [pages[--currentPage]]});
-          break;
-        case pagesEmojis[1]:
-          if (currentPage + 1 > pages.length - 1) return;
-          menuMsg.edit({ embeds: [pages[++currentPage]]});
-          break;
-        default:
-      }
-    });
-    collector.on("end", () => {
-      menuMsg.reactions.removeAll();
-    });
+
+        const row = new MessageActionRow().addComponents(
+            new MessageButton()
+                .setStyle("SUCCESS")
+                .setLabel("Назад")
+                .setCustomId("back"),
+
+            new MessageButton()
+                .setStyle("DANGER")
+                .setLabel("Вперед")
+                .setCustomId("next"),
+        )
+
+        var menuMsg = await message.channel.send({ embeds: [pages[0]], components: [row] });
+        currentPage = 0
+        const filter = (interaction) => {
+            if (interaction.user.id === message.author.id) return true;
+            return interaction.reply({
+                content: `Только ${message.member.displayName} может использовать это!`,
+                ephemeral: true,
+            });
+        };
+
+        const collector = menuMsg.createMessageComponentCollector({
+            filter,
+            componentType: "BUTTON",
+            time: 1000 * 60 * 5
+        })
+
+        collector.on("collect", async (interaction) => {
+            if (interaction.customId === "back") {
+                if (currentPage - 1 < 0) {
+                    interaction.deferUpdate()
+                }
+                else {
+                    currentPage--
+                    interaction.update({ embeds: [pages[currentPage]], components: [row] })
+                }
+            }
+
+            if (interaction.customId === "next") {
+                if (!pages[currentPage + 1]) {
+                    interaction.deferUpdate()
+                }
+                else {
+                    currentPage++
+                    interaction.update({ embeds: [pages[currentPage]], components: [row] })
+                }
+            }
+        })
+
+        collector.on(`end`, interaction => {
+            row.components[0].setDisabled(true);
+            row.components[1].setDisabled(true);
+            menuMsg.edit({ components: [row] })
+        });
 }
 
   #getOptions() {
