@@ -108,9 +108,8 @@ const { MessageActionRow, MessageButton } = require("discord.js")
         });
 
         return interaction_member.roles.add(role.id);
-      }
-      
-      let msg = await client.channels.cache
+        
+        let msg = await client.channels.cache
                     .get("652521261058228236")
                     .messages.fetch("817434947119611925")
 
@@ -137,7 +136,7 @@ const { MessageActionRow, MessageButton } = require("discord.js")
                 )
                 
              await msg.edit({ components: [role_platform] })   
-      
+      }     
     }
 
     // Обработка кнопки "другие игры"
