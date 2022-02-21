@@ -139,13 +139,35 @@ class Command {
       }
     );
 
-    f.pages_menu(
-      message,
-      embeds_pages,
-      180000,
-      btn => btn.user.id === message.author.id
-    );
-  }
+ if (pages.length === 1) return;
+    var pagesEmojis = ["⬅️", "➡️"];
+    var collector = await menuMsg.createReactionCollector({
+      filter: (r, u) =>
+        u.id === message.author.id && pagesEmojis.includes(r.emoji.name),
+      time: 180000,
+    });
+    var setReacts = async () => {
+      await menuMsg.react(pagesEmojis[0]);
+      await menuMsg.react(pagesEmojis[1]);
+    };
+    setReacts();
+    collector.on("collect", (r, u) => {
+      r.users.remove(u.id);
+      switch (r.emoji.name) {
+        case pagesEmojis[0]:
+          if (currentPage - 1 < 0) return;
+          menuMsg.edit({ embeds: [pages[--currentPage]]});
+          break;
+        case pagesEmojis[1]:
+          if (currentPage + 1 > pages.length - 1) return;
+          menuMsg.edit({ embeds: [pages[++currentPage]]});
+          break;
+        default:
+      }
+    });
+    collector.on("end", () => {
+      menuMsg.reactions.removeAll();
+    });
 
   #getOptions() {
     return {
