@@ -126,7 +126,6 @@ class Command {
     }
 
     var currentPage = 0;
-    var menuMsg = await message.channel.send({ embeds: [pages[0]]});
 
     clubs.updateOne(
       {
@@ -140,7 +139,9 @@ class Command {
       }
     );
 
- if (pages.length === 1) return;
+ if (pages.length === 1) {
+            message.channel.send({ embeds: [pages[0]] })
+        } else {
 
         const row = new MessageActionRow().addComponents(
             new MessageButton()
@@ -195,6 +196,7 @@ class Command {
         collector.on(`end`, interaction => {
             menuMsg.edit({ components: [] })
         });
+          }
 }
 
   #getOptions() {
