@@ -145,12 +145,12 @@ class Command {
 
         const row = new MessageActionRow().addComponents(
             new MessageButton()
-                .setStyle("SUCCESS")
+                .setStyle("PRIMARY")
                 .setLabel("Назад")
                 .setCustomId("back"),
 
             new MessageButton()
-                .setStyle("DANGER")
+                .setStyle("PRIMARY")
                 .setLabel("Вперед")
                 .setCustomId("next"),
         )
