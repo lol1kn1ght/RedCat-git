@@ -1,6 +1,15 @@
 module.exports = async function(message, pages, time, filter, start_page) {
   if (!message || !pages || !pages[0])
     throw new Error("Осутствуют обязательные аргументы.");
+  
+  
+  const filter = (interaction) => {
+                        if (interaction.user.id === message.author.id) return true;
+                        return interaction.reply({
+                            content: `Только \`${message.member.displayName}\` может использовать это!`,
+                            ephemeral: true,
+                        })
+    
   if (!filter) filter = () => true;
   if (!time) time = 60000;
 
