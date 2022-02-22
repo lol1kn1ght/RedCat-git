@@ -66,7 +66,8 @@ module.exports = async function(message, pages, time, filter, start_page) {
         // Листнуть страницу вперед
         if (menu_page + 1 > pages.length - 1) return;
         ++menu_page;
-
+        
+        if (menu_page + 1 > pages.length - 1) prev_page.disabled = true;
         if (menu_page - 1 >= 0) prev_page.disabled = false;
 
          let new_row_2 = new Discord.MessageActionRow().addComponents(
