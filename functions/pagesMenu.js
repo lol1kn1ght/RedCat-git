@@ -53,7 +53,7 @@ module.exports = async function(message, pages, time, filter, start_page) {
         if (menu_page - 1 < 0) return;
         --menu_page;
 
-        if (menu_page - 1 < 0) await interaction.deferUpdate();
+        if (menu_page - 1 < 0) interaction.deferUpdate();
 
         let new_row_1 = new Discord.MessageActionRow().addComponents(
           prev_page,
@@ -69,7 +69,7 @@ module.exports = async function(message, pages, time, filter, start_page) {
 
         if (menu_page - 1 >= 0) prev_page.disabled = false;
 
-        if (menu_page + 1 > pages.length - 1) await interaction.deferUpdate();
+        if (menu_page + 1 > pages.length - 1) interaction.deferUpdate();
 
         let new_row_2 = new Discord.MessageActionRow().addComponents(
           prev_page,
