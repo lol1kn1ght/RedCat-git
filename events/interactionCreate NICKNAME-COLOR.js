@@ -4,8 +4,9 @@ class Event {
   constructor() {}
 
   async execute(bot, mongo, interaction) {
-    if (bot.channels.cache.get("849152752189964348")) {
-      if (!interaction.isSelectMenu()) return;
+if (!interaction.isSelectMenu()) return;
+if (interaction.channel.id === '936122587124219936') {
+if (bot.channels.cache.get("849152752189964348")) {
 
       if (
         !(
@@ -85,6 +86,7 @@ class Event {
         .setColor(`#eced6d`);
 
       await msg.edit({embeds: [Embed]});
+}
     }
   }
 }
