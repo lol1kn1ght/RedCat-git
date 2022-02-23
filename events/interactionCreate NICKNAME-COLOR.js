@@ -5,7 +5,7 @@ class Event {
 
   async execute(bot, mongo, interaction) {
 if (!interaction.isSelectMenu()) return;
-if (interaction.channel.id === '936122587124219936') {
+if (interaction.channel.id === '849152752189964348') {
 if (bot.channels.cache.get("849152752189964348")) {
 
       if (
