@@ -1,11 +1,11 @@
 FROM node:latest
 
-RUN mkdir -p /usr/src/bot
-WORKDIR /usr/src/bot
+RUN mkdir -p /usr/src/redcat
+WORKDIR /usr/src/redcat
 
-COPY package.json /usr/src/bot
+COPY package.json /usr/src/redcat
 RUN npm install
 
-COPY . /usr/src/bot
+COPY . /usr/src/redcat
 
-CMD ["node", "index.js"]
+CMD ["node", "Cat.js"]
