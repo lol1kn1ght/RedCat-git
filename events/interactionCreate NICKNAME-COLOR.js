@@ -75,9 +75,9 @@ if (bot.channels.cache.get("849152752189964348")) {
       let embed_description =
         '<@&650616098957295627> и <@&849252190659936266> (покупатели товара "Цветной никнейм" в магазине (`;shop` в <#643032168884600834>)) имеют возможность выбрать цвет никнейма из представленных ниже.\n';
       for (let index = 0; index < color_roles.length; ++index) {
-        embed_description += `\n<@&${color_roles[index]}> (${
+        embed_description += `**•** <@&${color_roles[index]}> [ ${
           interaction.guild.roles.cache.get(color_roles[index]).members.size
-        })`;
+        } ]\n`;
       }
   
   const select_role_cat = color_roles.map((id) => {
