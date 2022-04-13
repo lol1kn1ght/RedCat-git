@@ -1,4 +1,4 @@
-const {MessageEmbed, MessageActionRow, MessageButton} = require("discord.js");
+const {MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu} = require("discord.js");
 
 class Event {
   constructor() {}
