@@ -100,7 +100,7 @@ if (bot.channels.cache.get("849152752189964348")) {
   
   const color_roles_cat_row = new MessageActionRow().addComponents(
                 new MessageSelectMenu()
-                    .setCustomId('balconrole')
+                    .setCustomId('color_roles_cat')
                     .setPlaceholder(`Нажмите, что бы выбрать цвет`)
                     .addOptions(select_role_cat)
             );
