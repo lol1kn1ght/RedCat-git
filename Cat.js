@@ -70,13 +70,13 @@ class BotLaunch {
   }
 
   async authDB() {
-    let {user, ip, pass, auth} = mongo_config;
+    let {user, ip, pass, auth, port} = mongo_config;
     if (!auth) ip = "localhost";
 
     let connect = util.promisify(this.mongoClient.connect);
 
     let mongo = await connect(
-      `mongodb+srv://${user}:${pass}@${ip}`,
+      `mongodb://${user}:${pass}@${ip}:${port}/test`,
       // `mongodb://${auth ? `${user}:${pass}@${ip}` : ip}:27017`,
       {
         useNewUrlParser: true,
@@ -84,7 +84,7 @@ class BotLaunch {
       }
     );
     this.mongo = mongo;
-    console.log(`${cyan} Успешно подключена база данных ${ip}:${27017}`);
+    console.log(`${cyan} Успешно подключена база данных ${ip}:${port}`);
   }
 
   async reloadCommands() {
