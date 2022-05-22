@@ -28,7 +28,7 @@ class Command {
       var amount = balanceAuthor;
     } else {
       var amount = Number(args[1]);
-      if (isNaN(amount) || amount < 0)
+      if (isNaN(amount) || amount < 1)
         return f.msgFalse(
           message,
           "Вы неправильно указали количество для передачи."

@@ -18,10 +18,10 @@ class Command {
     if (isNaN(amount))
       return f.msgFalse(message, "Сумма для депозита должна быть числом.");
 
-    if (amount < 0)
+    if (amount < 1)
       return f.msgFalse(
         message,
-        "Сумма для депозита не должна быть меньше нуля."
+        "Сумма для депозита должна быть положительной."
       );
 
     let clubs_db = db.collection("clubs");

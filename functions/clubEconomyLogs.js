@@ -8,7 +8,7 @@ module.exports = function({
   reason,
   final_coins
 }) {
-  if (!amount || !club_for || !member_by || !type || !reason)
+  if (!club_for || !member_by || !type || !reason)
     throw new Error("Недостаточно аргументов.");
 
   if (isNaN(Number(amount))) throw new Error("Сумма должна быть числом.");
