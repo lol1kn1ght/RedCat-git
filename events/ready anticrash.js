@@ -11,7 +11,6 @@ class Event {
 
         process.on("unhandledRejection", async (reason, promise) => {
             const embed = new MessageEmbed()
-                .addField("Promise", `\`\`\`${promise}\`\`\``, true)
                 .addField("Reason", `\`\`\`${reason}\`\`\``, true)
                 .setTimestamp()
                 .setColor(`RED`)
