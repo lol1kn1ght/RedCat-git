@@ -6,7 +6,7 @@ class Event {
         console.log(member)
 
         if (member.guild.id == "581181840832987176") {
-            let db = await mongo.db("joi").collection("clubs")
+            let db = await mongo.db("581181840832987176").collection("clubs")
 
             let clubs = await db.find().toArray()
 
