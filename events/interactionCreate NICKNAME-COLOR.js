@@ -79,7 +79,7 @@ if (bot.channels.cache.get("849152752189964348")) {
           interaction.guild.roles.cache.get(color_roles[index]).members.size
         } ]\n`;
       }
-  
+
   const select_role_cat = color_roles.map((id) => {
                 const role_cat = interaction.guild.roles.cache.get(id);
                 return {
@@ -87,7 +87,7 @@ if (bot.channels.cache.get("849152752189964348")) {
                     value: role_cat.id,
                 }
             });
-  
+
  select_role_cat.push({
                 label: "Снять с себя цветную роль ❌",
                 value: "No_color_role_cat"
@@ -97,11 +97,11 @@ if (bot.channels.cache.get("849152752189964348")) {
         .setTitle("Цвет ника")
         .setDescription(embed_description)
         .setColor(`#eced6d`);
-  
+
   const color_roles_cat_row = new MessageActionRow().addComponents(
                 new MessageSelectMenu()
                     .setCustomId('color_roles_cat')
-                    .setPlaceholder(`Нажмите, что бы выбрать цвет`)
+                    .setPlaceholder(`Нажмите, чтобы выбрать цвет`)
                     .addOptions(select_role_cat)
             );
 
