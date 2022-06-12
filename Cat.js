@@ -1,28 +1,28 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const client = new Discord.Client({
-  intents: Object.values(Discord.Intents.FLAGS)
+  intents: Object.values(Discord.Intents.FLAGS),
 });
-const fs = require("fs");
-const util = require("util");
+const fs = require('fs');
+const util = require('util');
 
-const constants = require("./config/constants.json");
+const constants = require('./config/constants.json');
 
 const mongo_config = constants.db;
-const {token} = constants;
+const { token } = constants;
 
 let f = require(`./config/modules.js`);
 
-const {MongoClient} = require("mongodb");
+const { MongoClient } = require('mongodb');
 
-let green = "\x1b[32m";
-let red = "\x1b[31m";
-let magenta = "\x1b[35m";
-let white = "\x1b[0m";
-let cyan = "\x1b[36m";
+let green = '\x1b[32m';
+let red = '\x1b[31m';
+let magenta = '\x1b[35m';
+let white = '\x1b[0m';
+let cyan = '\x1b[36m';
 
 class BotLaunch {
   constructor() {
-    this.config = require("./config/config.json");
+    this.config = require('./config/config.json');
     this.readdir = util.promisify(fs.readdir);
     this.mongoClient = MongoClient;
     this.bot = client;
@@ -45,7 +45,7 @@ class BotLaunch {
         `;\n`
     );
     console.log(`${green} --------------------|`);
-    console.time("Время запуска бота");
+    console.time('Время запуска бота');
     await this.authDB();
     console.log(`${green} --------------------|`);
     await this.reLoadEvents();
@@ -70,17 +70,20 @@ class BotLaunch {
   }
 
   async authDB() {
-    let {user, ip, pass, auth, port} = mongo_config;
-    if (!auth) ip = "localhost";
-
+    let { user, ip, pass, auth, port } = mongo_config;
+    if (!auth) {
+      ip = 'localhost';
+      port = 27017;
+    }
     let connect = util.promisify(this.mongoClient.connect);
 
     let mongo = await connect(
-      `mongodb://${user}:${pass}@${ip}:${port}/test`,
-      // `mongodb://${auth ? `${user}:${pass}@${ip}` : ip}:27017`,
+      auth
+        ? `mongodb://${user}:${pass}@${ip}:${port}/test`
+        : `mongodb://localhost:27017`,
       {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
       }
     );
     this.mongo = mongo;
@@ -92,11 +95,11 @@ class BotLaunch {
       `${green} ############### | Начинаю загрузку серверных команд | ###############\n`,
       white
     );
-    let dir = await this.readdir("./commands");
+    let dir = await this.readdir('./commands');
 
     for (let file of dir) {
-      if (!file.includes(".js")) continue;
-      let filename = file.replace(".js", "");
+      if (!file.includes('.js')) continue;
+      let filename = file.replace('.js', '');
 
       try {
         let cache = require.cache[require.resolve(`./commands/${filename}`)];
@@ -121,13 +124,13 @@ class BotLaunch {
       `${green} ################### | Начинаю загрузку ивентов | ####################\n`,
       white
     );
-    let dir = await this.readdir("./events");
+    let dir = await this.readdir('./events');
     let bot = this.bot;
     bot._events = {};
     for (let file of dir) {
-      if (!file.includes(".js")) continue;
+      if (!file.includes('.js')) continue;
       let filename = file.replace(`.js`, ``);
-      let eventname = filename.split(" ")[0];
+      let eventname = filename.split(' ')[0];
 
       let cache = require.cache[require.resolve(`./events/${filename}`)];
       if (cache) delete require.cache[require.resolve(`./events/${filename}`)];
@@ -168,12 +171,12 @@ class BotLaunch {
     );
     for (let command_name in list_commands) {
       let command = list_commands[command_name];
-      let options_arr = command.options.type.split(" ");
+      let options_arr = command.options.type.split(' ');
 
       if (
-        command.options.permissions.includes("OWNER") ||
-        options_arr.includes("WIP") ||
-        options_arr.includes("--hidden")
+        command.options.permissions.includes('OWNER') ||
+        options_arr.includes('WIP') ||
+        options_arr.includes('--hidden')
       )
         continue;
 
@@ -183,7 +186,7 @@ class BotLaunch {
         .applications(this.bot.user.id)
         .guilds(f.config.slash_guild)
         .commands.post({
-          data: command.slashOptions
+          data: command.slashOptions,
         });
       console.log(
         `Успешно загружена слеш-команда ${command.slashOptions.name}`
