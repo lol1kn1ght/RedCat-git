@@ -20,7 +20,7 @@ class Command {
       message.member
     );
     if (
-      !members_permissions.has("CREATE_INSTANT_INVITE") ||
+      !members_permissions.has('PRIORITY_SPEAKER') ||
       message.member.voice.channel.bitrate !== 65000
     )
       return f.msgFalse(
@@ -29,46 +29,46 @@ class Command {
       );
     switch (args[0]) {
       case `название`:
-      case "name":
+      case 'name':
         if (!args[1])
           return f.msgFalse(message, `Вы не указали название канала.`);
         args.splice(0, 1);
         channel.edit({
-          name: args.join(` `)
+          name: args.join(` `),
         });
         f.msg(
           message,
           `Вы успешно установили название комнаты: **${args.join(` `)}**`
         );
         break;
-      case "лимит":
-      case "limit":
+      case 'лимит':
+      case 'limit':
         let limit = Number(args[1]);
         if (!limit) return f.msgFalse(message, `Лимит должен быть числом.`);
         if (limit > 99 || limit < 1)
           return f.msgFalse(message, `Не правильно указан лимит комнаты.`);
         channel.edit({
-          userLimit: limit
+          userLimit: limit,
         });
         f.msg(message, `Вы успешно установили лимит в **${args[1]}** человек.`);
         break;
-      case "открыть":
-      case "open":
+      case 'открыть':
+      case 'open':
         channel.permissionOverwrites.edit(message.guild.id, {
-          CONNECT: true
+          CONNECT: true,
         });
         f.msg(message, `Вы успешно открыли дверь в комнату для других людей.`);
         break;
-      case "закрыть":
+      case 'закрыть':
         channel.permissionOverwrites.edit(message.guild.id, {
-          CONNECT: false
+          CONNECT: false,
         });
         f.msg(message, `Вы успешно закрыли дверь в комнату для других людей.`);
         break;
-      case "выгнать":
-      case "кикнуть":
-      case "кик":
-      case "kick":
+      case 'выгнать':
+      case 'кикнуть':
+      case 'кик':
+      case 'kick':
         member =
           message.guild.members.cache.get(args[1]) ||
           message.mentions.members.first();
@@ -88,8 +88,8 @@ class Command {
           `Вы успешно выгнали **${member.user.tag}** из своей комнаты.`
         );
         break;
-      case "бан":
-      case "ban":
+      case 'бан':
+      case 'ban':
         var member =
           message.guild.members.cache.get(args[1]) ||
           message.mentions.members.first();
@@ -101,7 +101,7 @@ class Command {
         if (member.user.bot)
           return f.msgFalse(message, `Вы не можете забанить бота.`);
         channel.permissionOverwrites.edit(member.id, {
-          CONNECT: false
+          CONNECT: false,
         });
         if (member.voice.channel && member.voice.channel.id === channel.id)
           member.voice.disconnect();
@@ -110,8 +110,8 @@ class Command {
           `Вы успешно запретили входить участнику **${member.user.tag}** в ваш канал.`
         );
         break;
-      case "разбан":
-      case "unban":
+      case 'разбан':
+      case 'unban':
         var member =
           message.guild.members.cache.get(args[1]) ||
           message.mentions.members.first();
@@ -123,7 +123,7 @@ class Command {
         if (member.user.bot)
           return f.msgFalse(message, `Вы не можете разбанить бота.`);
         channel.permissionOverwrites.edit(member.id, {
-          CONNECT: null
+          CONNECT: null,
         });
         f.msg(
           message,
@@ -131,39 +131,39 @@ class Command {
         );
         break;
 
-      case "hide":
-      case "спрятать":
+      case 'hide':
+      case 'спрятать':
         let permissions_arr = [
-          ...message.channel.permissionOverwrites.cache
-        ].map(permission => permission[1]);
+          ...message.channel.permissionOverwrites.cache,
+        ].map((permission) => permission[1]);
 
         let new_permissions = [
           {
-            id: "648818757409701890",
-            allow: ["VIEW_CHANNEL"]
+            id: '648818757409701890',
+            allow: ['VIEW_CHANNEL'],
           },
           {
-            id: "582260552588460053",
-            allow: ["VIEW_CHANNEL"]
-          }
+            id: '582260552588460053',
+            allow: ['VIEW_CHANNEL'],
+          },
         ];
 
         for (let permission of permissions_arr) {
           if (
-            permission.id === "582260552588460053" ||
-            permission.id === "648818757409701890"
+            permission.id === '582260552588460053' ||
+            permission.id === '648818757409701890'
           )
             continue;
 
           new_permissions.push({
             id: permission.id,
-            deny: ["VIEW_CHANNEL"]
+            deny: ['VIEW_CHANNEL'],
           });
         }
 
         channel.permissionOverwrites.set(new_permissions);
 
-        f.msg(message, "Вы успешно закрыли канал.");
+        f.msg(message, 'Вы успешно закрыли канал.');
         break;
 
         break;
@@ -177,64 +177,64 @@ class Command {
 
   #getOptions() {
     return {
-      aliases: "ac",
-      description: "изменить параметры автовойс канала",
+      aliases: 'ac',
+      description: 'изменить параметры автовойс канала',
       enabled: true,
-      type: "Голосовые каналы",
+      type: 'Голосовые каналы',
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: []
+      allowedRoles: [],
     };
   }
 
   #getSlashOptions() {
     return {
-      name: "ac",
+      name: 'ac',
       description: this.options.description,
       options: [
         {
-          name: "option",
-          description: "опция для изменения",
+          name: 'option',
+          description: 'опция для изменения',
           required: true,
           type: 3,
           choices: [
             {
-              name: "название вашего канала",
-              value: "name"
+              name: 'название вашего канала',
+              value: 'name',
             },
             {
-              name: "лимит участников в вашем канале",
-              value: "limit"
+              name: 'лимит участников в вашем канале',
+              value: 'limit',
             },
             {
-              name: "закрыть ваш канал",
-              value: "close"
+              name: 'закрыть ваш канал',
+              value: 'close',
             },
             {
-              name: "открыть ваш канал",
-              value: "open"
+              name: 'открыть ваш канал',
+              value: 'open',
             },
             {
-              name: "выгнать участника из вашего канала",
-              value: "kick"
+              name: 'выгнать участника из вашего канала',
+              value: 'kick',
             },
             {
-              name: "запретить участнику заходить в ваш канал",
-              value: "ban"
+              name: 'запретить участнику заходить в ваш канал',
+              value: 'ban',
             },
             {
-              name: "разрешить участнику заходить в ваш канал",
-              value: "unban"
-            }
-          ]
+              name: 'разрешить участнику заходить в ваш канал',
+              value: 'unban',
+            },
+          ],
         },
         {
-          name: "option_value",
-          description: "новое значение опции",
+          name: 'option_value',
+          description: 'новое значение опции',
           required: false,
-          type: 3
-        }
-      ]
+          type: 3,
+        },
+      ],
     };
   }
 }
