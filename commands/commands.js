@@ -82,8 +82,7 @@ class Command {
     f.pages_menu(
       message,
       embeds,
-      180000,
-      (react, user) => user.id === message.author.id
+      180000
     );
   }
 
