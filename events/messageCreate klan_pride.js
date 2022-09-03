@@ -5,7 +5,7 @@ class Event {
 
         const { channel, member, guild } = message
 
-        if (channel.type === Discord.ChannelType.DM) return;
+        if (channel.type === "dm") return;
 
         if (!["581181840832987176"].includes(guild.id)) return
 
@@ -88,4 +88,7 @@ class Event {
     }
 
 }
-module.exports = new Event()
+module.exports = (...args) => {
+	  new Event().execute(...args);
+};
+
