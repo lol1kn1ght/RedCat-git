@@ -8,4 +8,7 @@ RUN npm install
 
 COPY . /usr/src/redcat
 
+ENV TZ=Europe/Moscow
+RUN cp -r -f /usr/share/zoneinfo/$TZ /etc/localtime
+
 CMD ["node", "Cat.js"]
