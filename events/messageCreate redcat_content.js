@@ -15,7 +15,7 @@ class Event {
 
 
         if (["647370289193287680", "652764653281083417"].includes(channel.id)) { // авто"поделиться" с #видео и #новости
-            if (channel.type === Discord.ChannelType.GuildNews) {
+            if (channel.type === "GUILD_NEWS") {
                 if (member.roles.cache.some(role => "652455460632395776" || "445572229351211018")) return
                 message.crosspost()
                     .then(() => {
@@ -32,7 +32,7 @@ class Event {
         }
 
         if (["620255074022588416"].includes(channel.id)) { // авто"поделиться" с #дейлики информация
-            if (channel.type === Discord.ChannelType.GuildNews) {
+            if (channel.type === "GUILD_NEWS") {
                 message.crosspost()
                     .then(() => {
                         const logs = new Discord.MessageEmbed()
