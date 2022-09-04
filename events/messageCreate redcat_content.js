@@ -146,12 +146,11 @@ class Event {
                         `https://cdn.discordapp.com/attachments/627928404221624323/991615853630083122/unknown.png`
                     ]
                     let nazar_nazar = nazar_mas[Math.floor(Math.random() * (nazar_mas.length))];
-                    const bot = guild.members.cache.get(bot.user.id)
 
                     const embed = new Discord.MessageEmbed()
                         .setTitle(`Я вижу...вы, ${member.displayName}, что-то ищете...`)
                         .setDescription('\nЧтобы найти мадам Назар, пропишите в канале <#809480946561974312> команду \`/nazar\` или пройдите в канал <#620255074022588416>, там наши исследователи каждый день выкладывают ее актуальное местоположение!')
-                        .setColor(bot.displayHexColor)
+                        .setColor(message.guild.me.displayHexColor)
                         .setImage(nazar_nazar)
                         .setTimestamp()
                     message.reply({
@@ -211,8 +210,6 @@ class Event {
                         }
                     }).then(async (x) => await x.json())
 
-                    const bot = guild.members.cache.get(bot.user.id)
-
                     let embed;
                     if (author.id === "665111167441698826") { // если Лёха
 
@@ -222,14 +219,14 @@ class Event {
 
                         embed = new Discord.MessageEmbed()
                             .setTitle(`${cookie_rand}`)
-                            .setColor(bot.displayHexColor)
+                            .setColor(message.guild.me.displayHexColor)
                             .setImage(`${cat_api[0].url}`)
                             .setTimestamp()
                     } else {
 
                         embed = new Discord.MessageEmbed()
                             .setTitle(`И тебе доброго утра, от кота! <a:cat_cute:840074770337759282>`)
-                            .setColor(bot.displayHexColor)
+                            .setColor(message.guild.me.displayHexColor)
                             .setImage(`${cat_api[0].url}`)
                             .setTimestamp()
                     }
