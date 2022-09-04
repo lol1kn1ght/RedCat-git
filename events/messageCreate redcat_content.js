@@ -299,17 +299,6 @@ class Event {
 
                     await db.updateOne({ "channel": m_channel.id }, { "$set": { "number": new_number } })
 
-                    let msg_cat_number = await bot.channels.cache
-                        .get("846569943021387816")
-                        .messages.fetch("955657346816823297")
-
-                    const embed_cat_number = new Discord.MessageEmbed()
-                        .setTitle('Последнее число записанное в БД')
-                        .setColor(`#9cbefc`)
-                        .setDescription(`**•** **\`${new_number}\`**`)
-
-                    await msg_cat_number.edit({ embeds: [embed_cat_number] })
-
                     let random = Math.floor(Math.random() * 100);
                     if (random === 53) { // Если вычислено число 17, то выпадает будут начислены коты в чате котов.
 
