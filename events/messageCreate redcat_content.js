@@ -289,7 +289,7 @@ class Event {
                         .setImage(cat_url)
 
                     const webhooks = await m_channel.fetchWebhooks();
-                    const webhook = webhooks.find(wh => wh.token) ?? await channel.createWebhook({ name: `${m_channel.name}` })
+                    const webhook = webhooks.find(wh => wh.token) ?? await m_channel.createWebhook(`${m_channel.name}`)
 
                     await webhook.send({
                         embeds: [embed],
