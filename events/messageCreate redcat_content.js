@@ -215,7 +215,7 @@ class Event {
 
                         const cookie_rand = cookie[Math.floor(Math.random() * (cookie.length))]
 
-                        message.react("<a:LOVE1:773782898297274438>")
+                        message.react("💞")
 
                         embed = new Discord.MessageEmbed()
                             .setTitle(`${cookie_rand}`)
