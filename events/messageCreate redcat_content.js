@@ -22,7 +22,7 @@ class Event {
                         const logs = new Discord.MessageEmbed()
                             .setAuthor({ name: member.displayName, iconURL: member.displayAvatarURL() })
                             .setDescription(`Сообщение в <#${channel.id}> опубликовано.\n\n[__**--> Ссылка на сообщение <--**__](https://discord.com/channels/581181840832987176/${channel.id}/${message.id})`)
-                            .setColor(Discord.Colors.Green)
+                            .setColor('GREEN')
                             .setTimestamp()
 
                         bot.channels.cache.get('813676322286993429').send({ embeds: [logs] })
@@ -38,7 +38,7 @@ class Event {
                         const logs = new Discord.MessageEmbed()
                             .setAuthor({ name: member.displayName, iconURL: member.displayAvatarURL() })
                             .setDescription(`Сообщение в <#${channel.id}> опубликовано.\n\n[__**--> Ссылка на сообщение <--**__](https://discord.com/channels/581181840832987176/${channel.id}/${message.id})`)
-                            .setColor(Discord.Colors.Green)
+                            .setColor('GREEN')
                             .setTimestamp()
 
                         bot.channels.cache.get('813676322286993429').send({ embeds: [logs] })
@@ -332,7 +332,7 @@ class Event {
                             .setAuthor({ name: m_member.displayName, iconURL: m_member.displayAvatarURL() })
                             .setTitle(`Пользователь получил котов!`)
                             .setDescription(`В чате: <#846569943021387816>\n**User ID:** \`${m_member.id}\`\n${m_member}\n**Был баланс:** \`${balance}\`\n**Текущий баланс:** \`${updbalance}\``)
-                            .setColor(Discord.Colors.Green)
+                            .setColor('GREEN')
                             .setTimestamp()
 
                         bot.channels.cache.get('654719623371161620').send({ embeds: [logs] })
