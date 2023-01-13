@@ -8,8 +8,6 @@ class Event {
 
             let clubs = await db.find().toArray()
 
-            console.log(member.id)
-
             for (let index = 0; index < clubs.length; ++index) {
 
                 let members = clubs[index].members
