@@ -79,7 +79,7 @@ class BotLaunch {
 
     let mongo = await connect(
       auth
-        ? `mongodb://${user}:${pass}@${ip}:${port}/test`
+        ? `mongodb://${user}:${pass}@${ip}:${port}/admin`
         : `mongodb://localhost:27017`,
       {
         useNewUrlParser: true,
