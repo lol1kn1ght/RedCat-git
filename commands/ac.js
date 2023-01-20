@@ -7,8 +7,10 @@ class Command {
   async execute(bot, message, args, mongo) {
     var db = mongo.db(message.guild.id);
     if (message.channel.id !== "652538093790035968")
-      message.channel.send("Эта команда доступна только в <#652538093790035968>!");
-      return;
+      return f.msgFalse(
+        message,
+        `Эта команда доступна только в <#652538093790035968>!`
+      );
 
     if (!args[0])
       return f.msgFalse(message, `Вы не указали что хотите сделать.`);
