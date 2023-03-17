@@ -20,7 +20,7 @@ class Event {
 
     if (!logs_channel) return;
 
-    logs_channel.send("Я запущено!");
+    logs_channel.send("Я завелась <:pepe_Giggle:822331283475791884>");
   }
 }
 module.exports = (...args) => {
