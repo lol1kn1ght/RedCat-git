@@ -7,7 +7,11 @@ class Command {
 
   async execute(bot, message, args, mongo) {
 
-    const { channel, guild, member } = message
+    const {
+      channel,
+      guild,
+      member
+    } = message
 
     if (!["581181840832987176"].includes(guild.id)) return
     if (!["761208877004881951"].includes(channel.id)) return
@@ -362,32 +366,32 @@ class Command {
     const row = new Discord.ActionRowBuilder()
       .addComponents(
         new Discord.ButtonBuilder()
-          .setCustomId('down')
-          .setEmoji("⬇️")
-          .setStyle("PRIMARY"),
+        .setCustomId('down')
+        .setEmoji("⬇️")
+        .setStyle("PRIMARY"),
         new Discord.ButtonBuilder()
-          .setCustomId('left')
-          .setEmoji("⬅️")
-          .setStyle("PRIMARY"),
+        .setCustomId('left')
+        .setEmoji("⬅️")
+        .setStyle("PRIMARY"),
         new Discord.ButtonBuilder()
-          .setCustomId('right')
-          .setEmoji("➡️")
-          .setStyle("PRIMARY"),
+        .setCustomId('right')
+        .setEmoji("➡️")
+        .setStyle("PRIMARY"),
         new Discord.ButtonBuilder()
-          .setCustomId('up')
-          .setEmoji("⬆️")
-          .setStyle("PRIMARY"),
+        .setCustomId('up')
+        .setEmoji("⬆️")
+        .setStyle("PRIMARY"),
       );
 
 
     await message.reply({
-      embeds: [embed],
-      files: [new Discord.AttachmentBuilder(canvas.toBuffer(), `welcome.png`)],
-      components: [row],
-      allowedMentions: {
-        repliedUser: false
-      }
-    })
+        embeds: [embed],
+        files: [new Discord.AttachmentBuilder(canvas.toBuffer(), `welcome.png`)],
+        components: [row],
+        allowedMentions: {
+          repliedUser: false
+        }
+      })
       .then(async (displayMessage) => {
 
         const movement = (x, y) => {
