@@ -3,6 +3,7 @@ const Canvas = require('canvas');
 class Command {
   constructor() {
     this.options = this.#getOptions();
+    this.slashOptions = this.#getSlashOptions();
   }
 
   async execute(bot, message, args, mongo) {
@@ -14,7 +15,7 @@ class Command {
     } = message
 
     if (!["581181840832987176"].includes(guild.id)) return
-    if (!["761208877004881951"].includes(channel.id)) return
+    if (!["603202801631363075"].includes(channel.id)) return
 
     const role = `603202801631363075`
 
@@ -499,14 +500,21 @@ class Command {
 
   #getOptions() {
     return {
-      aliases: ";runaway",
+      aliases: "runaway",
       description: "команда для побега из собачника",
       usage: ";runaway",
-      enabled: false,
+      enabled: true,
       type: "Развлечения",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
       allowedRoles: [],
+    };
+  }
+  
+   #getSlashOptions() {
+    return {
+      name: "runaway",
+      description: this.options.description
     };
   }
 
