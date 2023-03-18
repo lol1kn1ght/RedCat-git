@@ -502,11 +502,11 @@ class Command {
       aliases: ";runaway",
       description: "команда для побега из собачника",
       usage: ";runaway",
-      enabled: true,
+      enabled: false,
       type: "Развлечения",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: ["603202801631363075"],
+      allowedRoles: [],
     };
   }
 
