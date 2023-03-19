@@ -3,7 +3,7 @@ class Event {
 
     async execute(bot, mongo, message) {
 
-        if (message.channel.type === "dm") return;
+        if (message.guild === null) return;
 
         if (!["581181840832987176"].includes(message.guild.id)) return
 
