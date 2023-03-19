@@ -9,7 +9,7 @@ class Event {
 
         const { author, channel, member, guild, attachments } = message
 
-        if (channel.type === "dm") return;
+        if (message.guild === null) return;
 
         if (!["581181840832987176"].includes(guild.id)) return
 
