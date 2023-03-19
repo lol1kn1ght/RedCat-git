@@ -3,6 +3,7 @@ const Canvas = require('canvas');
 class Command {
   constructor() {
     this.options = this.#getOptions();
+    this.slashOptions = this.#getSlashOptions();
   }
 
   async execute(bot, message, args, mongo) {
@@ -355,7 +356,7 @@ class Command {
       ctx.fillRect(x * 50, y * 50, 50, 50)
     })
 
-    const embed = new Discord.EmbedBuilder()
+    const embed = new Discord.MessageEmbed()
       .setTitle('Побег из собачника')
       .setDescription(`Ожидайте, спавна карты 💫`)
       .setFooter({
@@ -363,35 +364,35 @@ class Command {
       })
       .setImage(`attachment://welcome.png`);
 
-    const row = new Discord.ActionRowBuilder()
+    const row = new Discord.MessageActionRow()
       .addComponents(
-        new Discord.ButtonBuilder()
-        .setCustomId('down')
-        .setEmoji("⬇️")
-        .setStyle("PRIMARY"),
-        new Discord.ButtonBuilder()
-        .setCustomId('left')
-        .setEmoji("⬅️")
-        .setStyle("PRIMARY"),
-        new Discord.ButtonBuilder()
-        .setCustomId('right')
-        .setEmoji("➡️")
-        .setStyle("PRIMARY"),
-        new Discord.ButtonBuilder()
-        .setCustomId('up')
-        .setEmoji("⬆️")
-        .setStyle("PRIMARY"),
+        new Discord.MessageButton()
+          .setCustomId('down')
+          .setEmoji("⬇️")
+          .setStyle("PRIMARY"),
+        new Discord.MessageButton()
+          .setCustomId('left')
+          .setEmoji("⬅️")
+          .setStyle("PRIMARY"),
+        new Discord.MessageButton()
+          .setCustomId('right')
+          .setEmoji("➡️")
+          .setStyle("PRIMARY"),
+        new Discord.MessageButton()
+          .setCustomId('up')
+          .setEmoji("⬆️")
+          .setStyle("PRIMARY"),
       );
 
 
     await message.reply({
-        embeds: [embed],
-        files: [new Discord.AttachmentBuilder(canvas.toBuffer(), `welcome.png`)],
-        components: [row],
-        allowedMentions: {
-          repliedUser: false
-        }
-      })
+      embeds: [embed],
+      files: [new Discord.MessageAttachment(canvas.toBuffer(), `welcome.png`)],
+      components: [row],
+      allowedMentions: {
+        repliedUser: false
+      }
+    })
       .then(async (displayMessage) => {
 
         const movement = (x, y) => {
@@ -421,7 +422,7 @@ class Command {
           embed.setImage(`attachment://welcome-${i}.png`);
           displayMessage.edit({
             embeds: [embed],
-            files: [new Discord.AttachmentBuilder(canvas.toBuffer(), `welcome-${i}.png`)]
+            files: [new Discord.MessageAttachment(canvas.toBuffer(), `welcome-${i}.png`)]
           })
         }
 
@@ -436,7 +437,7 @@ class Command {
           componentType: "BUTTON",
         });
 
-        const embed2 = new Discord.EmbedBuilder()
+        const embed2 = new Discord.MessageEmbed()
           .setTitle('Вы успешно сбежали с собачника!')
           .setColor(`#ffae42`)
           .setImage(`https://cdn.discordapp.com/attachments/627928404221624323/978988134878572554/ezgif-4-0f99ac6458.gif`)
@@ -499,14 +500,21 @@ class Command {
 
   #getOptions() {
     return {
-      aliases: ";runaway",
+      aliases: "runaway",
       description: "команда для побега из собачника",
       usage: ";runaway",
-      enabled: false,
-      type: "Развлечения",
+      enabled: true,
+      type: "Администрация",
       permissions: [],
       allowedChannels: [`EVERYWHERE`],
-      allowedRoles: [],
+      allowedRoles: ["603202801631363075"],
+    };
+  }
+
+  #getSlashOptions() {
+    return {
+      name: "runaway",
+      description: this.options.description
     };
   }
 
