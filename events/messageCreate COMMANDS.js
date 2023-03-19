@@ -7,7 +7,7 @@ class Event {
     if (
       !message.content.startsWith(f.config.prefix) ||
       message.author.bot ||
-      message.channel.type === "dm"
+      message.guild === null
     )
       return;
     var args = message.content.split(` `);
