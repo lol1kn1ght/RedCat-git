@@ -3,16 +3,14 @@ class Event {
 
     async execute(bot, mongo, message) {
 
-        const { channel, member, guild } = message
+        if (message.channel.type === "dm") return;
 
-        if (channel.type === "dm") return;
-
-        if (!["581181840832987176"].includes(guild.id)) return
+        if (!["581181840832987176"].includes(message.guild.id)) return
 
         const sopr = ["сопровождение"];
-        if (channel.id === "806815816804335636") { // проверка на чат клана
-            if (member.roles.cache.some(role => role.id === "785455233416429568")) { //проверка на роль клана
-                if (member.roles.cache.some(role => role.id === "842087886697398342")) { //доп проверка на игровую роль
+        if (message.channel.id === "806815816804335636") { // проверка на чат клана
+            if (message.member.roles.cache.some(role => role.id === "785455233416429568")) { //проверка на роль клана
+                if (message.member.roles.cache.some(role => role.id === "842087886697398342")) { //доп проверка на игровую роль
                     const exampleEmbed2 = new Discord.MessageEmbed()
                         .setAuthor({ name: member.displayName, iconURL: member.displayAvatarURL() })
                         .setTitle(`Уважаемый(ая), хочет подарить бабло и теплое общение - ПОГНАЛИ!`)
@@ -21,7 +19,7 @@ class Event {
                     let content = message.content.toLowerCase().split(' ');
                     for (let i = 0; i < sopr.length; i++) {
                         if (content.includes(sopr[i])) {
-                            channel.send({ content: `<@&842087886697398342>`, embeds: [exampleEmbed2] });
+                            message.channel.send({ content: `<@&842087886697398342>`, embeds: [exampleEmbed2] });
                             break
                         }
                     }
@@ -30,8 +28,8 @@ class Event {
         }
 
         const car = ["царь"]; // Триггер
-        if (channel.id === "806815816804335636") { // проверка на чат клана
-            if (member.roles.cache.some(role => role.id === "785455233416429568")) {//проверка на роль клана
+        if (message.channel.id === "806815816804335636") { // проверка на чат клана
+            if (message.member.roles.cache.some(role => role.id === "785455233416429568")) {//проверка на роль клана
                 const exampleEmbed3 = new Discord.MessageEmbed()
                     .setAuthor({ name: member.displayName, iconURL: member.displayAvatarURL() })
                     .setTitle(`Я вызываю батю, батюню, атца !!!`)
@@ -40,7 +38,7 @@ class Event {
                 let content = message.content.toLowerCase().split(' ');
                 for (let i = 0; i < car.length; i++) {
                     if (content.includes(car[i])) {
-                        channel.send({ content: `<@!445572229351211018>`, embeds: [exampleEmbed3] });
+                        message.channel.send({ content: `<@!445572229351211018>`, embeds: [exampleEmbed3] });
                         break
                     }
                 }
@@ -49,8 +47,8 @@ class Event {
 
 
         const vander = ["вандер"]; // Триггер
-        if (channel.id === "806815816804335636") { // проверка на чат клана
-            if (member.roles.cache.some(role => role.id === "785455233416429568")) {//проверка на роль клана
+        if (message.channel.id === "806815816804335636") { // проверка на чат клана
+            if (message.member.roles.cache.some(role => role.id === "785455233416429568")) {//проверка на роль клана
                 const exampleEmbed5 = new Discord.MessageEmbed()
                     .setAuthor({ name: member.displayName, iconURL: member.displayAvatarURL() })
                     .setTitle(`Иди сюда, я желаю тебя видеть!!`)
@@ -60,7 +58,7 @@ class Event {
                 let content = message.content.toLowerCase().split(' ');
                 for (let i = 0; i < vander.length; i++) {
                     if (content.includes(vander[i])) {
-                        channel.send({ content: `<@!329966505229811713>`, embeds: [exampleEmbed5] });
+                        message.channel.send({ content: `<@!329966505229811713>`, embeds: [exampleEmbed5] });
                         break
                     }
                 }
@@ -69,8 +67,8 @@ class Event {
 
 
         const viki = ["вики"]; // Триггер
-        if (channel.id === "806815816804335636") { // проверка на чат клана
-            if (member.roles.cache.some(role => role.id === "785455233416429568")) {//проверка на роль клана
+        if (message.channel.id === "806815816804335636") { // проверка на чат клана
+            if (message.member.roles.cache.some(role => role.id === "785455233416429568")) {//проверка на роль клана
                 const exampleEmbed6 = new Discord.MessageEmbed()
                     .setTitle(`Вики внимательно слушает, но это не точно...`)
                     .setColor('#ff6b18')
@@ -78,7 +76,7 @@ class Event {
                 let content = message.content.toLowerCase().split(' ');
                 for (let i = 0; i < viki.length; i++) {
                     if (content.includes(viki[i])) {
-                        channel.send({ content: `<@!690445504978616331>`, embeds: [exampleEmbed6] });
+                        message.channel.send({ content: `<@!690445504978616331>`, embeds: [exampleEmbed6] });
                         break
                     }
                 }
@@ -91,4 +89,3 @@ class Event {
 module.exports = (...args) => {
 	  new Event().execute(...args);
 };
-
