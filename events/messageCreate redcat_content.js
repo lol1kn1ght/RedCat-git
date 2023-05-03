@@ -275,7 +275,7 @@ class Event {
             }
 
             // const random_cat = (Math.floor(Math.random() * 2) + 1)
-            const ransom_cat = 2
+            const random_cat = 2
 
             if (random_cat === 1) await catApi_1()
             if (random_cat === 2) await catApi_2()
