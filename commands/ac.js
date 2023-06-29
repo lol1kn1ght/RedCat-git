@@ -65,6 +65,7 @@ class Command {
         f.msg(message, `Вы успешно открыли дверь в комнату для других людей.`);
         break;
       case 'закрыть':
+      case 'close':
         channel.permissionOverwrites.edit(message.guild.id, {
           CONNECT: false,
         });
