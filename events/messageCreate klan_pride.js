@@ -12,7 +12,7 @@ class Event {
             if (message.member.roles.cache.some(role => role.id === "785455233416429568")) { //проверка на роль клана
                 if (message.member.roles.cache.some(role => role.id === "842087886697398342")) { //доп проверка на игровую роль
                     const exampleEmbed2 = new Discord.MessageEmbed()
-                        .setAuthor({ name: member.displayName, iconURL: member.displayAvatarURL() })
+                        .setAuthor({ name: message.member.displayName, iconURL: message.member.displayAvatarURL() })
                         .setTitle(`Уважаемый(ая), хочет подарить бабло и теплое общение - ПОГНАЛИ!`)
                         .setColor('#ff6b18')
                         .setImage('https://cdn.discordapp.com/attachments/886363503756214322/891785942636040242/buggy-horse-and-buggy.gif')
@@ -31,7 +31,7 @@ class Event {
         if (message.channel.id === "806815816804335636") { // проверка на чат клана
             if (message.member.roles.cache.some(role => role.id === "785455233416429568")) {//проверка на роль клана
                 const exampleEmbed3 = new Discord.MessageEmbed()
-                    .setAuthor({ name: member.displayName, iconURL: member.displayAvatarURL() })
+                    .setAuthor({ name: message.member.displayName, iconURL: message.member.displayAvatarURL() })
                     .setTitle(`Я вызываю батю, батюню, атца !!!`)
                     .setColor('#ff6b18')
                     .setImage('https://cdn.discordapp.com/attachments/627928404221624323/836893776403234826/tenor_11.gif')
@@ -50,7 +50,7 @@ class Event {
         if (message.channel.id === "806815816804335636") { // проверка на чат клана
             if (message.member.roles.cache.some(role => role.id === "785455233416429568")) {//проверка на роль клана
                 const exampleEmbed5 = new Discord.MessageEmbed()
-                    .setAuthor({ name: member.displayName, iconURL: member.displayAvatarURL() })
+                    .setAuthor({ name: message.member.displayName, iconURL: message.member.displayAvatarURL() })
                     .setTitle(`Иди сюда, я желаю тебя видеть!!`)
                     .setColor('#ff6b18')
                     .setImage('https://cdn.discordapp.com/attachments/806815816804335636/829996908721733632/tenor_7.gif')
