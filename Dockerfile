@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:21.7.1
 
 RUN mkdir -p /usr/src/redcat
 WORKDIR /usr/src/redcat
